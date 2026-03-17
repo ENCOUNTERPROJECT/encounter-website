@@ -1,0 +1,1457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ENCOUNTER - Strategy & Cultural Partnerships</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --color-bg: #ffffff;
+            --color-text: #1a1a1a;
+            --color-text-light: #666666;
+            --color-border: #e0e0e0;
+            --color-accent: #000000;
+            --font-display: 'Garamond', 'Minion Pro', 'Times New Roman', serif;
+            --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Landing Page Hero */
+        .hero-landing {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            background: radial-gradient(ellipse at 60% 40%, #1a1008 0%, #0d0905 40%, #050302 100%);
+        }
+
+        /* Animated warm atmosphere overlay */
+        .hero-landing::before {
+            content: '';
+            position: absolute;
+            inset: -50%;
+            width: 200%;
+            height: 200%;
+            background-image:
+                radial-gradient(ellipse at 30% 60%, rgba(180, 110, 30, 0.07) 0%, transparent 55%),
+                radial-gradient(ellipse at 75% 25%, rgba(140, 80, 20, 0.05) 0%, transparent 50%);
+            animation: atmosphereShift 18s ease-in-out infinite alternate;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Slow vertical light column — removed */
+        .hero-landing::after {
+            display: none;
+        }
+
+        @keyframes atmosphereShift {
+            0%   { transform: translate(0, 0) scale(1); }
+            33%  { transform: translate(-2%, 1%) scale(1.03); }
+            66%  { transform: translate(1%, -2%) scale(0.98); }
+            100% { transform: translate(2%, 1%) scale(1.02); }
+        }
+
+        @keyframes lightPulse {
+            0%, 100% { opacity: 0.4; }
+            50%       { opacity: 1; }
+        }
+
+        /* Landing Navigation - Hamburger Only */
+        .landing-nav {
+            position: fixed;
+            top: 0;
+            right: 0;
+            z-index: 1002;
+            padding: 2rem 3rem;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        /* Page Navigation - Logo Left + Hamburger Right */
+        .page-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1002;
+            padding: 2rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: white;
+        }
+
+        /* Main Navigation (for other pages) */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem 3rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1002;
+            background: transparent;
+            backdrop-filter: none;
+            border-bottom: none;
+        }
+
+        nav.active {
+            display: flex;
+        }
+
+        .logo {
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: black;
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+        }
+
+        .logo:hover {
+            opacity: 0.6;
+        }
+
+        /* Hamburger Menu */
+        .hamburger {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+            z-index: 1003;
+            background: none;
+            border: none;
+            padding: 0.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .hamburger.hidden {
+            display: none;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 2px;
+            background: black;
+            transition: all 0.3s ease;
+            display: block;
+        }
+
+        /* Landing page hamburger - subtle */
+        .landing-nav .hamburger span {
+            background: white;
+            opacity: 0.25;
+            transition: opacity 0.4s ease;
+        }
+
+        .landing-nav .hamburger:hover span {
+            opacity: 0.7;
+        }
+
+        .hamburger.active span {
+            background: white !important;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: translateY(8px) rotate(45deg);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+            transform: scaleX(0);
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg);
+        }
+
+        nav.dark-bg .hamburger span {
+            background: white;
+        }
+
+        nav.light-bg .hamburger span {
+            background: black;
+        }
+
+        /* Page nav (about/contact) hamburger always black on white bg */
+        .page-nav .hamburger span {
+            background: black;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -340px;
+            width: 340px;
+            height: 100vh;
+            background: #ffffff;
+            border-left: 1px solid #e8e8e8;
+            z-index: 999;
+            transition: right 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 3rem;
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        /* Close button inside the menu panel */
+        .menu-close-btn {
+            position: absolute;
+            top: 2rem;
+            right: 3rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+            z-index: 1001;
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            width: 24px;
+            height: 24px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .menu-close-btn::before,
+        .menu-close-btn::after {
+            content: '';
+            position: absolute;
+            width: 22px;
+            height: 1.5px;
+            background: #1a1a1a;
+            transition: opacity 0.3s ease;
+        }
+
+        .menu-close-btn::before {
+            transform: rotate(45deg);
+        }
+
+        .menu-close-btn::after {
+            transform: rotate(-45deg);
+        }
+
+        .menu-close-btn:hover::before,
+        .menu-close-btn:hover::after {
+            opacity: 0.5;
+        }
+
+        .mobile-menu-content {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .mobile-nav-links {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            list-style: none;
+            text-align: center;
+        }
+
+        .mobile-nav-links a {
+            text-decoration: none;
+            color: #1a1a1a;
+            font-size: 1.2rem;
+            font-family: var(--font-body);
+            font-weight: 500;
+            font-style: normal;
+            transition: color 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .mobile-nav-links a:hover {
+            color: rgba(0, 0, 0, 0.4);
+        }
+
+        /* SVG Wordmark */
+        .encounter-svg {
+            width: clamp(200px, 55vw, 480px);
+            height: auto;
+            display: block;
+        }
+
+        .encounter-svg-small {
+            width: 130px;
+            height: auto;
+            display: block;
+            cursor: pointer;
+        }
+
+        .encounter-svg-small:hover {
+            opacity: 0.6;
+        }
+        .animated-wordmark-container {
+            text-align: center;
+            max-width: 90vw;
+            position: relative;
+            z-index: 2;
+        }
+
+        .wordmark-wrapper {
+            position: relative;
+            height: 220px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        @keyframes fadeInOutWordmark {
+            0% { opacity: 0; transform: scale(0.97); }
+            5% { opacity: 1; transform: scale(1); }
+            25% { opacity: 1; transform: scale(1); }
+            33% { opacity: 0; transform: scale(0.97); }
+            100% { opacity: 0; transform: scale(0.97); }
+        }
+
+        @keyframes fadeInOutTagline {
+            0% { opacity: 0; transform: translateY(8px); }
+            38% { opacity: 0; transform: translateY(8px); }
+            46% { opacity: 1; transform: translateY(0); }
+            72% { opacity: 1; transform: translateY(0); }
+            82% { opacity: 0; transform: translateY(-4px); }
+            100% { opacity: 0; transform: translateY(8px); }
+        }
+
+        .animated-text {
+            position: absolute;
+            font-size: clamp(3rem, 11vw, 6.5rem);
+            font-weight: 400;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            font-family: var(--font-body);
+            color: rgba(255, 255, 255, 0.95);
+            margin: 0;
+            white-space: nowrap;
+            text-shadow:
+                0 0 60px rgba(200, 140, 50, 0.15),
+                0 2px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .wordmark-text {
+            animation: fadeInOutWordmark 10s infinite linear;
+        }
+
+        .tagline-text {
+            font-size: clamp(1.8rem, 4.5vw, 3.2rem);
+            letter-spacing: 0.01em;
+            text-transform: none;
+            white-space: nowrap;
+            max-width: 95vw;
+            line-height: 1.2;
+            font-family: var(--font-display);
+            font-weight: 400;
+            font-style: normal;
+            color: rgba(255, 255, 255, 0.93);
+            text-shadow:
+                0 0 60px rgba(200, 140, 50, 0.12),
+                0 2px 30px rgba(0, 0, 0, 0.4);
+            animation: fadeInOutTagline 10s infinite linear;
+        }
+
+        /* Landing Hero Content */
+        .landing-hero-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .mobile-language-toggle {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+            margin-top: 1rem;
+        }
+
+        .mobile-lang-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            color: rgba(0, 0, 0, 0.35);
+            transition: color 0.3s ease, font-weight 0.3s ease;
+            padding: 0.5rem 0;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 400;
+        }
+
+        .mobile-lang-btn.active {
+            color: #1a1a1a;
+            font-weight: 600;
+        }
+
+        .mobile-lang-separator {
+            width: 1px;
+            height: 1.5rem;
+            background: rgba(0, 0, 0, 0.15);
+        }
+
+        /* Adaptive Nav Styling */
+        nav.dark-bg .logo {
+            color: white;
+        }
+
+        nav.dark-bg .hamburger span {
+            background: white;
+        }
+
+        nav.light-bg .logo {
+            color: black;
+        }
+
+        nav.light-bg .hamburger span {
+            background: black;
+        }
+
+        /* Scroll cue at bottom of landing — styled to match CTA buttons */
+        .scroll-cue {
+            position: absolute;
+            bottom: 2.8rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.75rem;
+            cursor: pointer;
+            z-index: 10;
+            opacity: 0;
+            animation: scrollCueFadeIn 1.5s ease 3s forwards;
+            transition: opacity 0.3s ease;
+        }
+
+        .scroll-cue:hover {
+            opacity: 0.7 !important;
+        }
+
+        .scroll-cue-label {
+            font-size: 0.6rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.45);
+            font-family: var(--font-body);
+            font-weight: 400;
+        }
+
+        .scroll-cue-line {
+            display: none;
+        }
+
+        @keyframes scrollCueFadeIn {
+            to { opacity: 1; }
+        }
+
+        @keyframes scrollLinePulse {
+            0%, 100% { transform: scaleY(1); opacity: 0.45; }
+            50%       { transform: scaleY(1.15); opacity: 0.9; }
+        }
+
+        /* Main Content */
+        main {
+            margin-top: 0;
+        }
+
+        .page {
+            display: none;
+            animation: pageEnter 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes pageEnter {
+            from {
+                opacity: 0;
+                transform: translateY(18px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Hero Section (After Splash) */
+        .hero {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 10rem 3rem 3rem;
+            overflow: hidden;
+            margin-top: 0;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: #000000;
+        }
+
+        .video-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            object-fit: cover;
+            display: none;
+        }
+
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: -1;
+        }
+
+        /* Override video overlay for landing page — keep transparent since we have no video */
+        .hero-landing .video-overlay {
+            background: transparent;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3rem;
+        }
+
+        .hero h1 {
+            font-family: var(--font-display);
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            line-height: 1.1;
+            font-weight: 400;
+            letter-spacing: -0.02em;
+            color: white;
+            max-width: 900px;
+        }
+
+        .hero-menu {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .hero-nav-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            list-style: none;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero-nav-links a {
+            text-decoration: none;
+            color: white;
+            font-size: 0.85rem;
+            transition: color 0.3s ease;
+            position: relative;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 500;
+        }
+
+        .hero-nav-links a:hover {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .hero-nav-links a.active {
+            text-decoration: underline;
+        }
+
+        .hero-language-toggle {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            margin-top: 0.5rem;
+        }
+
+        .hero-lang-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.6);
+            transition: color 0.3s ease, font-weight 0.3s ease;
+            padding: 0.5rem 0;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 400;
+        }
+
+        .hero-lang-btn.active {
+            color: white;
+            font-weight: 600;
+        }
+
+        .hero-lang-separator {
+            width: 1px;
+            height: 1rem;
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        /* About Section */
+        .about-section {
+            padding: 10rem 6rem 8rem 6rem;
+            max-width: 860px;
+            margin: 0 auto;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .section-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-bottom: 3rem;
+            border-bottom: 1px solid var(--color-border);
+            margin-bottom: 4rem;
+            width: 100%;
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 4vw, 3rem);
+            line-height: 1.25;
+            font-weight: 400;
+            letter-spacing: -0.01em;
+            color: var(--color-text);
+        }
+
+        .about-lead {
+            font-family: var(--font-display);
+            font-size: clamp(1.4rem, 2.4vw, 1.9rem);
+            line-height: 1.65;
+            font-weight: 400;
+            color: var(--color-text);
+            letter-spacing: -0.01em;
+            margin-bottom: 3rem;
+            max-width: 760px;
+            text-wrap: balance;
+        }
+
+        .about-body {
+            display: flex;
+            flex-direction: column;
+            gap: 1.4rem;
+            margin-bottom: 5rem;
+            align-items: center;
+        }
+
+        .about-body p {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            line-height: 1.85;
+            color: #444444;
+            font-weight: 400;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            text-wrap: pretty;
+        }
+
+        html[lang="fr"] .about-body p {
+            max-width: 480px;
+            text-wrap: pretty;
+        }
+
+        .about-footer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2.5rem;
+            padding-top: 3rem;
+            border-top: 1px solid var(--color-border);
+            width: 100%;
+        }
+
+        .section-intro {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .section-intro p {
+            font-size: 1.15rem;
+            line-height: 1.75;
+            color: var(--color-text);
+            letter-spacing: 0.35px;
+            font-weight: 300;
+        }
+
+        .tagline-box {
+            display: contents;
+        }
+
+        .get-in-touch-btn {
+            background: none;
+            border: none;
+            color: var(--color-text);
+            padding: 0;
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+            font-family: var(--font-body);
+            font-weight: 500;
+            margin-top: 1rem;
+            position: relative;
+        }
+
+        .get-in-touch-btn::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: var(--color-text);
+            transform: scaleX(0.3);
+            transform-origin: left;
+            transition: transform 0.35s ease;
+        }
+
+        .get-in-touch-btn:hover {
+            opacity: 0.6;
+        }
+
+        .get-in-touch-btn:hover::after {
+            transform: scaleX(1);
+        }
+
+        .tagline {
+            font-family: var(--font-display) !important;
+            font-size: clamp(1.3rem, 2.2vw, 1.75rem) !important;
+            font-weight: 400 !important;
+            letter-spacing: -0.01em !important;
+            line-height: 1.3 !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            color: var(--color-text) !important;
+            font-style: normal !important;
+        }
+
+        /* Services Grid */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 6rem;
+        }
+
+        .service-card {
+            padding: 2.5rem;
+            border: 1px solid var(--color-border);
+            background: rgba(255, 255, 255, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .service-card:hover {
+            border-color: var(--color-accent);
+            background: rgba(0, 0, 0, 0.01);
+        }
+
+        .service-card h3 {
+            font-family: var(--font-display);
+            font-size: 1.4rem;
+            margin-bottom: 1.2rem;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        .service-card p {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: var(--color-text-light);
+        }
+
+        /* Contact Section */
+        .contact-section {
+            padding: 12rem 3rem 8rem 3rem;
+            max-width: 860px;
+            margin: 0 auto;
+            background: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .contact-inner {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .contact-header-block {
+            width: 100%;
+            border-bottom: 1px solid var(--color-border);
+            margin-bottom: 4rem;
+            padding-bottom: 2rem;
+        }
+
+        .contact-title {
+            font-family: var(--font-display);
+            font-size: clamp(1.6rem, 3.2vw, 2.4rem);
+            line-height: 1.35;
+            font-weight: 400;
+            letter-spacing: -0.01em;
+            margin: 0;
+            text-wrap: balance;
+        }
+
+        .contact-intro {
+            font-family: var(--font-display);
+            font-size: 1.05rem;
+            line-height: 1.85;
+            color: #444444;
+            font-weight: 400;
+            max-width: 520px;
+            margin: 0 auto 3.5rem auto;
+            text-wrap: balance;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            width: 100%;
+            max-width: 560px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            text-align: left;
+        }
+
+        .form-group label {
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #888;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            padding: 0.75rem 0;
+            border: none;
+            border-bottom: 1px solid var(--color-border);
+            background: transparent;
+            color: var(--color-text);
+            font-family: var(--font-body);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:hover,
+        .form-group textarea:hover {
+            border-bottom-color: var(--color-text-light);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-bottom-color: var(--color-text);
+        }
+
+        .form-group textarea {
+            resize: none;
+            min-height: 120px;
+        }
+
+        .submit-btn {
+            align-self: center;
+            background: none;
+            border: none;
+            color: var(--color-text);
+            padding: 0;
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+            font-family: var(--font-body);
+            margin-top: 1.5rem;
+            position: relative;
+        }
+
+        .submit-btn::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: var(--color-text);
+            transform: scaleX(0.3);
+            transform-origin: left;
+            transition: transform 0.35s ease;
+        }
+
+        .submit-btn:hover { opacity: 0.6; }
+        .submit-btn:hover::after { transform: scaleX(1); }
+
+        /* Footer */
+        footer {
+            padding: 2rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid var(--color-border);
+            color: var(--color-text-light);
+            font-size: 0.85rem;
+            background: #ffffff;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            gap: 2rem;
+        }
+
+        .footer-copy {
+            font-size: 0.85rem;
+            flex-shrink: 0;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: flex-end;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-left: auto;
+        }
+
+        .footer-links a {
+            text-decoration: none;
+            color: var(--color-text-light);
+            font-size: 0.85rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--color-accent);
+        }
+
+        .footer-separator {
+            width: 1px;
+            height: 1rem;
+            background: var(--color-border);
+            display: inline-block;
+        }
+
+        @media (max-width: 768px) {
+            footer {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .footer-links {
+                justify-content: center;
+                margin-left: 0;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                padding: 1.5rem 1.5rem;
+            }
+
+            .nav-links {
+                gap: 1.5rem;
+                font-size: 0.85rem;
+            }
+
+            .nav-right {
+                gap: 1rem;
+            }
+
+            .splash-screen {
+                padding: 2rem 1.5rem;
+            }
+
+            .splash-logo {
+                font-size: 3.5rem;
+                margin-right: 1.5rem;
+            }
+
+            .splash-discover {
+                margin-right: 1.5rem;
+            }
+
+            .section-header {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .about-section {
+                padding: 8rem 1.8rem 5rem 1.8rem;
+                justify-content: flex-start;
+            }
+
+            .about-footer {
+                gap: 2rem;
+            }
+
+            .contact-header {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .hero {
+                padding: 8rem 1.5rem 3rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .about-section,
+            .contact-section {
+                padding: 8rem 1.5rem 4rem 1.5rem;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .contact-title {
+                font-size: 2rem;
+            }
+
+            footer {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .footer-links {
+                justify-content: center;
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="menu-close-btn" id="menuCloseBtn" aria-label="Close menu"></button>
+        <div class="mobile-menu-content">
+            <ul class="mobile-nav-links">
+                <li><a href="#" data-page="about" class="mobile-nav-link" data-text="nav-about">About</a></li>
+                <li><a href="#" data-page="contact" class="mobile-nav-link" data-text="nav-contact">Contact</a></li>
+            </ul>
+            <div class="mobile-language-toggle">
+                <button class="mobile-lang-btn active" data-lang="en">EN</button>
+                <div class="mobile-lang-separator"></div>
+                <button class="mobile-lang-btn" data-lang="fr">FR</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Landing Page: Dynamic ENCOUNTER ↔ Tagline Animation -->
+        <section class="page active" id="home">
+            <div class="hero-landing">
+                <video class="video-background" autoplay muted loop playsinline>
+                    <source src="https://videos.pexels.com/video-files/3043132/3043132-sd_640_360_30fps.mp4" type="video/mp4">
+                </video>
+                <div class="video-overlay"></div>
+                
+                <!-- Navigation: Hamburger Only (Top Right) -->
+                <nav class="landing-nav">
+                    <button class="hamburger" id="hamburgerBtn">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                </nav>
+
+                <!-- Hero Content: Animated ENCOUNTER ↔ Tagline -->
+                <div class="landing-hero-content">
+                    <div class="animated-wordmark-container">
+                        <div class="wordmark-wrapper">
+                            <h1 class="wordmark-text animated-text" data-text="splash-logo">ENCOUNTER</h1>
+                            <h1 class="tagline-text animated-text" data-text="hero-title">Reveal the power of Culture.</h1>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Scroll Cue -->
+                <div class="scroll-cue" id="scrollCue">
+                    <span class="scroll-cue-label" data-text="scroll-cue">Discover</span>
+                    <div class="scroll-cue-line"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Page -->
+        <section class="page" id="about">
+            <!-- Page Navigation -->
+            <nav class="page-nav">
+                <div class="logo" id="logoHome" data-text="nav-logo" onclick="setPage('home')">ENCOUNTER</div>
+                <button class="hamburger" id="hamburgerBtn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </nav>
+            <div class="about-section">
+                <div class="section-header">
+                    <h2 class="section-title" data-text="about-title">Strategy & Cultural Partnerships</h2>
+                </div>
+                <p class="about-lead" data-text="about-intro-1">ENCOUNTER fosters meaningful connections at the intersection of culture, art, design, architecture, and the premium and luxury sectors.</p>
+                <div class="about-body">
+                    <p data-text="about-intro-2">Rooted in contemporary creative ecosystems, ENCOUNTER supports institutions, artists, cultural platforms and brands internationally in developing strategic partnerships.</p>
+                    <p data-text="about-intro-3">Each collaboration is conceived with respect for artistic integrity, aligned with the ambitions of all parties involved, and designed to generate measurable, lasting impact.</p>
+                </div>
+                <div class="about-footer">
+                    <p class="tagline" data-text="about-tagline">Authenticity. Relevance. Excellence.</p>
+                    <button class="get-in-touch-btn" id="getInTouchBtn" data-text="get-in-touch">Get in Touch</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Page -->
+        <section class="page" id="contact">
+            <!-- Page Navigation -->
+            <nav class="page-nav">
+                <div class="logo" id="logoHome2" data-text="nav-logo" onclick="setPage('home')">ENCOUNTER</div>
+                <button class="hamburger" id="hamburgerBtn2">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </nav>
+            <div class="contact-section">
+                <div class="contact-inner">
+                    <div class="contact-header-block">
+                        <h2 class="contact-title" data-text="contact-title">Every encounter begins with a conversation.</h2>
+                    </div>
+                    <form class="contact-form" id="contactForm">
+                        <div class="form-group">
+                            <label for="email" data-text="form-email">Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject" data-text="form-subject">Subject</label>
+                            <input type="text" id="subject" name="subject" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message" data-text="form-message">Message</label>
+                            <textarea id="message" name="message" required></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn" data-text="form-submit">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-copy" data-text="footer">© 2026 ENCOUNTER. All rights reserved.</div>
+            <div class="footer-links">
+                <a href="#" data-text="footer-imprint">Imprint</a>
+                <a href="#" data-text="footer-privacy">Privacy Policy</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Content Dictionary
+        const content = {
+            en: {
+                'splash-logo': 'ENCOUNTER',
+                'discover-btn': 'Discover',
+                'scroll-cue': 'Discover',
+                'nav-logo': 'ENCOUNTER',
+                'nav-about': 'About',
+                'nav-contact': 'Contact',
+                'hero-title': 'Reveal the power of Culture.',
+                'about-title': 'Strategy & Cultural Partnerships',
+                'about-intro-1': 'ENCOUNTER fosters meaningful connections<br>at the intersection of culture, art, design, architecture,<br>and the premium and luxury sectors.',
+                'about-intro-2': 'Rooted in contemporary creative ecosystems, ENCOUNTER supports institutions, artists, cultural platforms and brands internationally in developing strategic partnerships.',
+                'about-intro-3': 'Each collaboration is conceived with respect for artistic integrity, aligned with the ambitions of all parties involved, and designed to generate measurable, lasting impact.',
+                'about-tagline': 'Authenticity. Relevance. Excellence.',
+                'get-in-touch': 'Get in Touch',
+                'service-1-title': 'Identity',
+                'service-1-desc': 'Develop distinctive narratives that elevate reputation and generate meaningful press coverage.',
+                'service-2-title': 'Legacy',
+                'service-2-desc': 'Activate heritage and program through credible contemporary dialogue to build long-term cultural equity.',
+                'service-3-title': 'Loyalty',
+                'service-3-desc': 'Create signature experiences that deepen relationships and transform visitors into long-term patrons.',
+                'service-4-title': 'Network',
+                'service-4-desc': 'Reach new publics through cross-disciplinary collaborations that foster engaged communities.',
+                'service-5-title': 'Influence',
+                'service-5-desc': 'Move from visibility to recognition—establishing cultural authority and thought leadership.',
+                'contact-title': 'Each connection begins<br>with a conversation.',
+                'contact-intro': '',
+                'form-email': 'Email',
+                'form-subject': 'Subject',
+                'form-message': 'Message',
+                'form-submit': 'Submit',
+                'footer': '© 2026 ENCOUNTER. All rights reserved.',
+                'footer-imprint': 'Imprint',
+                'footer-privacy': 'Privacy Policy'
+            },
+            fr: {
+                'splash-logo': 'ENCOUNTER',
+                'discover-btn': 'Découvrir',
+                'scroll-cue': 'Découvrir',
+                'nav-logo': 'ENCOUNTER',
+                'nav-about': 'À propos',
+                'nav-contact': 'Contact',
+                'hero-title': 'Révéler la force de la culture.',
+                'about-title': 'Stratégie et Collaborations Culturelles',
+                'about-intro-1': 'ENCOUNTER provoque des rencontres qui créent des passerelles entre culture, arts, design, architecture et les secteurs luxe et premium.',
+                'about-intro-2': 'Ancrée au cœur des écosystèmes créatifs contemporains, ENCOUNTER accompagne à l\'international institutions, artistes, plateformes culturelles et marques dans le développement de partenariats stratégiques.',
+                'about-intro-3': 'Chaque collaboration est conçue dans le respect de l\'intégrité artistique, alignée avec les ambitions de toutes les parties prenantes, et pensée pour générer un impact mesurable et durable.',
+                'about-tagline': 'Authenticité. Pertinence. Excellence.',
+                'get-in-touch': 'Contact',
+                'service-1-title': 'Identité',
+                'service-1-desc': 'Développer des récits distinctifs qui renforcent la réputation et génèrent une couverture médiatique significative.',
+                'service-2-title': 'Héritage',
+                'service-2-desc': 'Activer le patrimoine et les programmes par un dialogue contemporain crédible pour construire une équité culturelle à long terme.',
+                'service-3-title': 'Fidélité',
+                'service-3-desc': 'Créer des expériences signature qui approfondissent les relations et transforment les visiteurs en mécènes à long terme.',
+                'service-4-title': 'Réseau',
+                'service-4-desc': 'Atteindre de nouveaux publics grâce aux collaborations transdisciplinaires qui favorisent des communautés engagées.',
+                'service-5-title': 'Influence',
+                'service-5-desc': 'Passer de la visibilité à la reconnaissance—établir une autorité culturelle et un leadership d\'opinion.',
+                'contact-title': 'Chaque rencontre<br>commence par une conversation.',
+                'contact-intro': '',
+                'form-email': 'Email',
+                'form-subject': 'Sujet',
+                'form-message': 'Message',
+                'form-submit': 'Envoyer',
+                'footer': '© 2026 ENCOUNTER. Tous droits réservés.',
+                'footer-imprint': 'Mentions légales',
+                'footer-privacy': 'Confidentialité'
+            }
+        };
+
+        let currentLang = 'en';
+        let currentPage = 'home';
+
+        // Hamburger Menu Toggle - Handle all hamburger buttons
+        const hamburgers = document.querySelectorAll('.hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        hamburgers.forEach(hamburger => {
+            hamburger.addEventListener('click', () => {
+                // Toggle all hamburgers
+                hamburgers.forEach(h => h.classList.toggle('active'));
+                mobileMenu.classList.toggle('active');
+            });
+        });
+
+        // Dedicated close button inside menu
+        document.getElementById('menuCloseBtn').addEventListener('click', () => {
+            hamburgers.forEach(h => h.classList.remove('active'));
+            mobileMenu.classList.remove('active');
+        });
+
+        // Close menu when clicking on a link
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburgers.forEach(h => h.classList.remove('active'));
+                mobileMenu.classList.remove('active');
+            });
+        });
+
+        // Language Toggle - Mobile Menu
+        document.querySelectorAll('.mobile-lang-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const lang = e.target.dataset.lang;
+                setLanguage(lang);
+            });
+        });
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            document.documentElement.lang = lang;
+            // Update mobile buttons
+            document.querySelectorAll('.mobile-lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.lang === lang);
+            });
+            updatePageText();
+            localStorage.setItem('language', lang);
+        }
+
+        function updatePageText() {
+            document.querySelectorAll('[data-text]').forEach(el => {
+                const key = el.dataset.text;
+                if (content[currentLang][key]) {
+                    el.innerHTML = content[currentLang][key];
+                }
+            });
+        }
+
+        // Page Navigation
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const page = e.target.dataset.page;
+                setPage(page);
+            });
+        });
+
+        // Logo click to home - handle all logo instances
+        document.querySelectorAll('.logo').forEach(logo => {
+            logo.addEventListener('click', () => {
+                setPage('home');
+            });
+        });
+
+        // Get in Touch button
+        document.getElementById('getInTouchBtn').addEventListener('click', () => {
+            setPage('contact');
+        });
+
+        function setPage(page) {
+            currentPage = page;
+            document.querySelectorAll('.page').forEach(p => {
+                p.classList.remove('active');
+            });
+            document.getElementById(page).classList.add('active');
+
+            // Update mobile nav links
+            document.querySelectorAll('.mobile-nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            if (page !== 'home') {
+                document.querySelector(`.mobile-nav-link[data-page="${page}"]`)?.classList.add('active');
+            }
+
+            // Close mobile menu
+            const hamburgerBtn = document.getElementById('hamburgerBtn');
+            const mobileMenu = document.getElementById('mobileMenu');
+            hamburgerBtn.classList.remove('active');
+            mobileMenu.classList.remove('active');
+
+            window.scrollTo(0, 0);
+            localStorage.setItem('page', page);
+        }
+
+        // Scroll cue — click navigates to About
+        document.getElementById('scrollCue').addEventListener('click', () => {
+            setPage('about');
+        });
+
+        // Form Submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+
+            // Create mailto link
+            const mailtoLink = `mailto:katia@encounter-project.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}%0A%0AFrom: ${encodeURIComponent(email)}`;
+            window.location.href = mailtoLink;
+        });
+
+        // Initialize
+        window.addEventListener('load', () => {
+            const savedLang = localStorage.getItem('language') || 'en';
+            setLanguage(savedLang);
+            
+            // Set initial nav styling and hamburger visibility
+            const nav = document.getElementById('mainNav');
+            const hamburger = document.getElementById('hamburgerBtn');
+            nav.classList.add('dark-bg');
+            hamburger.classList.add('hidden');
+        });
+    </script>
+</body>
+</html>
