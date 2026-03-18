@@ -1200,6 +1200,118 @@
                 margin-left: 0;
             }
         }
+
+        /* Legal Pages (Imprint / Privacy) */
+        .legal-section {
+            min-height: 100vh;
+            padding: 10rem 3rem 6rem;
+            max-width: 720px;
+            margin: 0 auto;
+        }
+
+        .legal-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: rgba(0,0,0,0.4);
+            text-decoration: none;
+            margin-bottom: 3rem;
+            cursor: pointer;
+            transition: color 0.2s ease;
+            background: none;
+            border: none;
+            padding: 0;
+            font-family: var(--font-body);
+        }
+
+        .legal-back:hover { color: rgba(0,0,0,0.9); }
+
+        .legal-back::before {
+            content: '←';
+            font-size: 0.9rem;
+        }
+
+        .legal-title {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 300;
+            letter-spacing: -0.01em;
+            margin-bottom: 3rem;
+            color: #1a1a1a;
+        }
+
+        .legal-block {
+            margin-bottom: 2.5rem;
+        }
+
+        .legal-block h3 {
+            font-family: var(--font-body);
+            font-size: 0.65rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: rgba(0,0,0,0.4);
+            margin-bottom: 0.75rem;
+            font-weight: 400;
+        }
+
+        .legal-block p {
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            line-height: 1.8;
+            color: rgba(0,0,0,0.75);
+        }
+
+        .legal-block a {
+            color: rgba(0,0,0,0.75);
+        }
+
+        .legal-identity {
+            display: grid;
+            grid-template-columns: 140px 1fr;
+            gap: 0.5rem 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .legal-identity .label {
+            font-size: 0.65rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: rgba(0,0,0,0.35);
+            font-family: var(--font-body);
+            padding-top: 0.1rem;
+        }
+
+        .legal-identity .value {
+            font-size: 0.95rem;
+            color: rgba(0,0,0,0.75);
+            font-family: var(--font-body);
+            line-height: 1.6;
+        }
+
+        .legal-divider {
+            border: none;
+            border-top: 1px solid rgba(0,0,0,0.08);
+            margin: 2.5rem 0;
+        }
+
+        .legal-updated {
+            font-size: 0.75rem;
+            color: rgba(0,0,0,0.3);
+            font-family: var(--font-body);
+            margin-top: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            .legal-section {
+                padding: 8rem 1.5rem 4rem;
+            }
+            .legal-identity {
+                grid-template-columns: 120px 1fr;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1285,8 +1397,8 @@
                 <div class="footer-content">
                     <div class="footer-copy" data-text="footer">© 2026 ENCOUNTER. All rights reserved.</div>
                     <div class="footer-links">
-                        <a href="#" data-text="footer-imprint">Imprint</a>
-                        <a href="#" data-text="footer-privacy">Privacy Policy</a>
+                        <a href="#" data-text="footer-imprint" onclick="event.preventDefault(); setPage(currentLang==='fr'?'imprint-fr':'imprint-en')">Imprint</a>
+                        <a href="#" data-text="footer-privacy" onclick="event.preventDefault(); setPage(currentLang==='fr'?'privacy-fr':'privacy-en')">Privacy Policy</a>
                     </div>
                 </div>
             </footer>
@@ -1320,11 +1432,155 @@
                 <div class="footer-content">
                     <div class="footer-copy" data-text="footer">© 2026 ENCOUNTER. All rights reserved.</div>
                     <div class="footer-links">
-                        <a href="#" data-text="footer-imprint">Imprint</a>
-                        <a href="#" data-text="footer-privacy">Privacy Policy</a>
+                        <a href="#" data-text="footer-imprint" onclick="event.preventDefault(); setPage(currentLang==='fr'?'imprint-fr':'imprint-en')">Imprint</a>
+                        <a href="#" data-text="footer-privacy" onclick="event.preventDefault(); setPage(currentLang==='fr'?'privacy-fr':'privacy-en')">Privacy Policy</a>
                     </div>
                 </div>
             </footer>
+        </section>
+
+        <!-- Imprint EN -->
+        <section class="page" id="imprint-en">
+            <div class="legal-section">
+                <button class="legal-back" onclick="setPage(previousPage || 'about')" data-text="legal-back">Back</button>
+                <h1 class="legal-title">Imprint</h1>
+                <div class="legal-identity">
+                    <span class="label">Name</span>
+                    <span class="value">Katia Lhammi</span>
+                    <span class="label">Brand</span>
+                    <span class="value">ENCOUNTER</span>
+                    <span class="label">Location</span>
+                    <span class="value">Basel, Switzerland</span>
+                    <span class="label">Email</span>
+                    <span class="value"><a href="mailto:katia@encounter-project.com">katia@encounter-project.com</a></span>
+                    <span class="label">Website</span>
+                    <span class="value">encounter-project.com</span>
+                </div>
+                <hr class="legal-divider">
+                <div class="legal-block">
+                    <h3>Disclaimer</h3>
+                    <p>The content of this website is provided for information purposes only. While every effort is made to keep information accurate and up to date, ENCOUNTER makes no representations or warranties of any kind, express or implied, about the completeness or accuracy of the information on this site.</p>
+                </div>
+                <div class="legal-block">
+                    <h3>Intellectual Property</h3>
+                    <p>All content on this website — including text, visual identity, and design — is the property of Katia Lhammi / ENCOUNTER and may not be reproduced or used without prior written consent.</p>
+                </div>
+                <div class="legal-block">
+                    <h3>External Links</h3>
+                    <p>This website may contain links to external sites. ENCOUNTER has no control over the content of those sites and accepts no responsibility for them.</p>
+                </div>
+                <p class="legal-updated">Last updated: March 2026 — Basel, Switzerland</p>
+            </div>
+        </section>
+
+        <!-- Imprint FR -->
+        <section class="page" id="imprint-fr">
+            <div class="legal-section">
+                <button class="legal-back" onclick="setPage(previousPage || 'about')" data-text="legal-back">Retour</button>
+                <h1 class="legal-title">Mentions légales</h1>
+                <div class="legal-identity">
+                    <span class="label">Nom</span>
+                    <span class="value">Katia Lhammi</span>
+                    <span class="label">Nom commercial</span>
+                    <span class="value">ENCOUNTER</span>
+                    <span class="label">Localisation</span>
+                    <span class="value">Bâle, Suisse</span>
+                    <span class="label">Email</span>
+                    <span class="value"><a href="mailto:katia@encounter-project.com">katia@encounter-project.com</a></span>
+                    <span class="label">Site</span>
+                    <span class="value">encounter-project.com</span>
+                </div>
+                <hr class="legal-divider">
+                <div class="legal-block">
+                    <h3>Avertissement</h3>
+                    <p>Le contenu de ce site est fourni à titre informatif uniquement. ENCOUNTER s'efforce d'en assurer l'exactitude, mais ne donne aucune garantie, expresse ou implicite, quant à l'exhaustivité ou à la fiabilité des informations présentées.</p>
+                </div>
+                <div class="legal-block">
+                    <h3>Propriété intellectuelle</h3>
+                    <p>L'ensemble du contenu de ce site — textes, identité visuelle et design — est la propriété de Katia Lhammi / ENCOUNTER et ne peut être reproduit ou utilisé sans autorisation écrite préalable.</p>
+                </div>
+                <div class="legal-block">
+                    <h3>Liens externes</h3>
+                    <p>Ce site peut contenir des liens vers des sites tiers. ENCOUNTER n'exerce aucun contrôle sur leur contenu et décline toute responsabilité à leur égard.</p>
+                </div>
+                <p class="legal-updated">Dernière mise à jour : mars 2026 — Bâle, Suisse</p>
+            </div>
+        </section>
+
+        <!-- Privacy EN -->
+        <section class="page" id="privacy-en">
+            <div class="legal-section">
+                <button class="legal-back" onclick="setPage(previousPage || 'about')" data-text="legal-back">Back</button>
+                <h1 class="legal-title">Privacy Policy</h1>
+                <div class="legal-block">
+                    <p>This policy explains how ENCOUNTER (operated by Katia Lhammi, Basel, Switzerland) handles the personal information shared through this website. The approach is simple: only what is necessary is collected, it is never sold or shared, and it is used solely to respond to your messages.</p>
+                </div>
+                <hr class="legal-divider">
+                <div class="legal-block">
+                    <h3>What is collected</h3>
+                    <p>When you use the contact form, the following information is collected: your email address, the subject of your message, and the content of your message. No other data is collected through this website. This site does not use tracking cookies, analytics tools, or third-party advertising.</p>
+                </div>
+                <div class="legal-block">
+                    <h3>How it is used</h3>
+                    <p>Your information is used only to respond to your enquiry. It is not added to any mailing list, shared with third parties, or used for any commercial purpose without your explicit consent.</p>
+                </div>
+                <div class="legal-block">
+                    <h3>How it is stored</h3>
+                    <p>Messages sent through the contact form are received directly by email. No information is stored on external servers or databases connected to this website.</p>
+                </div>
+                <div class="legal-block">
+                    <h3>Your rights</h3>
+                    <p>You have the right to access, correct, or request the deletion of any personal information you have shared. To exercise these rights, please write to <a href="mailto:katia@encounter-project.com">katia@encounter-project.com</a>.</p>
+                </div>
+                <hr class="legal-divider">
+                <div class="legal-block">
+                    <h3>Cookies</h3>
+                    <p>This website does not use cookies to track or identify visitors. A language preference may be stored locally in your browser to remember your language choice between visits. This data stays on your device and is never transmitted.</p>
+                </div>
+                <div class="legal-block">
+                    <h3>Applicable law</h3>
+                    <p>This policy is governed by Swiss law, in particular the Federal Act on Data Protection (nFADP / LPD). For any question or concern, please contact <a href="mailto:katia@encounter-project.com">katia@encounter-project.com</a>.</p>
+                </div>
+                <p class="legal-updated">Last updated: March 2026 — Basel, Switzerland</p>
+            </div>
+        </section>
+
+        <!-- Privacy FR -->
+        <section class="page" id="privacy-fr">
+            <div class="legal-section">
+                <button class="legal-back" onclick="setPage(previousPage || 'about')" data-text="legal-back">Retour</button>
+                <h1 class="legal-title">Confidentialité</h1>
+                <div class="legal-block">
+                    <p>Cette politique explique comment ENCOUNTER (exercé par Katia Lhammi, Bâle, Suisse) traite les informations personnelles partagées via ce site. L'approche est simple : seul le nécessaire est collecté, ces données ne sont jamais vendues ni partagées, et elles servent uniquement à répondre à vos messages.</p>
+                </div>
+                <hr class="legal-divider">
+                <div class="legal-block">
+                    <h3>Ce qui est collecté</h3>
+                    <p>Lorsque vous utilisez le formulaire de contact, les informations suivantes sont collectées : votre adresse e-mail, l'objet de votre message et son contenu. Aucune autre donnée n'est collectée via ce site. Ce site n'utilise ni cookies de suivi, ni outils d'analyse, ni publicité tierce.</p>
+                </div>
+                <div class="legal-block">
+                    <h3>Comment elles sont utilisées</h3>
+                    <p>Vos informations sont utilisées uniquement pour répondre à votre message. Elles ne sont ajoutées à aucune liste de diffusion, partagées avec des tiers, ni utilisées à des fins commerciales sans votre consentement explicite.</p>
+                </div>
+                <div class="legal-block">
+                    <h3>Comment elles sont conservées</h3>
+                    <p>Les messages envoyés via le formulaire de contact sont reçus directement par e-mail. Aucune information n'est stockée sur des serveurs externes ou des bases de données liées à ce site.</p>
+                </div>
+                <div class="legal-block">
+                    <h3>Vos droits</h3>
+                    <p>Vous disposez du droit d'accéder à vos données personnelles, de les corriger ou d'en demander la suppression. Pour exercer ces droits, écrivez à <a href="mailto:katia@encounter-project.com">katia@encounter-project.com</a>.</p>
+                </div>
+                <hr class="legal-divider">
+                <div class="legal-block">
+                    <h3>Cookies</h3>
+                    <p>Ce site n'utilise pas de cookies pour suivre ou identifier les visiteurs. Une préférence de langue peut être enregistrée localement dans votre navigateur pour mémoriser votre choix entre les visites. Cette donnée reste sur votre appareil et n'est jamais transmise.</p>
+                </div>
+                <div class="legal-block">
+                    <h3>Droit applicable</h3>
+                    <p>Cette politique est régie par le droit suisse, notamment la Loi fédérale sur la protection des données (LPD / nLPD). Pour toute question, contactez <a href="mailto:katia@encounter-project.com">katia@encounter-project.com</a>.</p>
+                </div>
+                <p class="legal-updated">Dernière mise à jour : mars 2026 — Bâle, Suisse</p>
+            </div>
         </section>
     </main>
 
@@ -1363,7 +1619,8 @@
                 'form-submit': 'Send',
                 'footer': '© 2026 ENCOUNTER. All rights reserved.',
                 'footer-imprint': 'Imprint',
-                'footer-privacy': 'Privacy Policy'
+                'footer-privacy': 'Privacy Policy',
+                'legal-back': 'Back'
             },
             fr: {
                 'splash-logo': 'ENCOUNTER',
@@ -1397,12 +1654,14 @@
                 'form-submit': 'Envoyer',
                 'footer': '© 2026 ENCOUNTER. Tous droits réservés.',
                 'footer-imprint': 'Mentions légales',
-                'footer-privacy': 'Confidentialité'
+                'footer-privacy': 'Confidentialité',
+                'legal-back': 'Retour'
             }
         };
 
         let currentLang = 'en';
         let currentPage = 'home';
+        let previousPage = 'about';
 
         // Hamburger Menu Toggle - Handle all hamburger buttons
         const hamburgers = document.querySelectorAll('.hamburger');
@@ -1485,6 +1744,7 @@
         });
 
         function setPage(page) {
+            previousPage = currentPage;
             currentPage = page;
             document.querySelectorAll('.page').forEach(p => {
                 p.classList.remove('active');
