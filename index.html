@@ -1526,6 +1526,13 @@
                     el.offsetHeight; // trigger reflow
                     el.style.animation = '';
                 });
+                // Restart scroll cue fade-in
+                const scrollCue = document.getElementById('scrollCue');
+                if (scrollCue) {
+                    scrollCue.style.animation = 'none';
+                    scrollCue.offsetHeight; // trigger reflow
+                    scrollCue.style.animation = '';
+                }
             }
         }
 
