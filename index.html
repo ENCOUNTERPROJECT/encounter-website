@@ -1358,6 +1358,19 @@
                 grid-template-columns: 120px 1fr;
             }
         }
+
+        .form-success {
+            padding: 3rem 0;
+            text-align: center;
+        }
+
+        .form-success p {
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: rgba(0,0,0,0.4);
+        }
     </style>
 </head>
 <body>
@@ -1848,15 +1861,41 @@
         });
 
         // Form Submission
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
+        document.getElementById('contactForm').addEventListener('submit', async function(e) {
             e.preventDefault();
+            const form = e.target;
+            const btn = form.querySelector('button[type="submit"]');
             const email = document.getElementById('email').value;
             const subject = document.getElementById('subject').value;
             const message = document.getElementById('message').value;
 
-            // Create mailto link
-            const mailtoLink = `mailto:katia@encounter-project.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}%0A%0AFrom: ${encodeURIComponent(email)}`;
-            window.location.href = mailtoLink;
+            // Disable button during send
+            btn.disabled = true;
+            btn.textContent = '...';
+
+            try {
+                const response = await fetch('https://formspree.io/f/xgondrzw', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                    body: JSON.stringify({ email, subject, message })
+                });
+
+                if (response.ok) {
+                    // Show success — replace form with confirmation
+                    const lang = currentLang;
+                    form.innerHTML = `<div class="form-success">
+                        <p>${lang === 'fr' ? 'Message envoyé. Merci.' : 'Message sent. Thank you.'}</p>
+                    </div>`;
+                } else {
+                    btn.disabled = false;
+                    btn.textContent = currentLang === 'fr' ? 'Envoyer' : 'Send';
+                    alert(currentLang === 'fr' ? 'Une erreur est survenue. Veuillez réessayer.' : 'Something went wrong. Please try again.');
+                }
+            } catch (err) {
+                btn.disabled = false;
+                btn.textContent = currentLang === 'fr' ? 'Envoyer' : 'Send';
+                alert(currentLang === 'fr' ? 'Une erreur est survenue. Veuillez réessayer.' : 'Something went wrong. Please try again.');
+            }
         });
 
         // Initialize
