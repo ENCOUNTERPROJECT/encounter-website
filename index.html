@@ -832,7 +832,8 @@
             flex-direction: column;
             align-items: center;
             gap: 2.5rem;
-            padding-top: 3rem;
+            padding-top: 4rem;
+            padding-bottom: 4rem;
             border-top: 1px solid var(--color-border);
             width: 100%;
         }
@@ -867,7 +868,6 @@
             transition: opacity 0.3s ease;
             font-family: var(--font-body);
             font-weight: 500;
-            margin-top: 1rem;
             position: relative;
         }
 
@@ -1371,6 +1371,55 @@
             text-transform: uppercase;
             color: rgba(0,0,0,0.4);
         }
+
+        /* Premise / Bio Section */
+        .about-premise {
+            width: 100%;
+            padding-top: 4rem;
+            border-top: 1px solid var(--color-border);
+            margin-bottom: 5rem;
+            text-align: center;
+        }
+        .about-premise-title {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 400;
+            letter-spacing: -0.01em;
+            color: var(--color-text);
+            margin-bottom: 2rem;
+        }
+        .about-premise-name {
+            font-family: var(--font-display);
+            font-size: clamp(1.4rem, 2.4vw, 1.9rem);
+            font-weight: 400;
+            line-height: 1.65;
+            letter-spacing: -0.01em;
+            color: var(--color-text);
+            text-transform: none;
+            max-width: 760px;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+            text-wrap: balance;
+            margin-bottom: 3rem;
+        }
+        .about-premise p:not(.about-premise-name) {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            line-height: 1.85;
+            color: #444444;
+            font-weight: 400;
+            margin-bottom: 1.5rem;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+            text-wrap: balance;
+        }
+        .about-premise p:not(.about-premise-name):last-child { margin-bottom: 0; }
+        @media (max-width: 768px) {
+            .about-premise { padding-top: 3rem; margin-bottom: 3rem; }
+        }
     </style>
 </head>
 <body>
@@ -1451,6 +1500,15 @@
                     <p class="tagline" data-text="about-tagline">Authenticity. Relevance. Excellence.</p>
                     <button class="get-in-touch-btn" id="getInTouchBtn" data-text="get-in-touch">Get in Touch</button>
                 </div>
+
+                <!-- Premise / Bio -->
+                <div class="about-premise">
+                    <h2 class="about-premise-title" data-text="premise-label">Premise</h2>
+                    <p class="about-premise-name" data-text="premise-name">Katia Lhammi, Founder</p>
+                    <p data-text="premise-p1"></p>
+                    <p data-text="premise-p2"></p>
+                    <p data-text="premise-p3"></p>
+                </div>
             </div>
             <footer>
                 <div class="footer-content">
@@ -1511,7 +1569,7 @@
                     <span class="label">Location</span>
                     <span class="value">Basel, Switzerland</span>
                     <span class="label">Email</span>
-                    <span class="value"><a href="mailto:katia@encounter-project.com">katia@encounter-project.com</a></span>
+                    <span class="value"><a href="/cdn-cgi/l/email-protection#bfd4decbd6deffdad1dcd0cad1cbdacd92cfcdd0d5dadccb91dcd0d2"><span class="__cf_email__" data-cfemail="9af1fbeef3fbdafff4f9f5eff4eeffe8b7eae8f5f0fff9eeb4f9f5f7">[email&#160;protected]</span></a></span>
                     <span class="label">Website</span>
                     <span class="value">encounter-project.com</span>
                 </div>
@@ -1545,7 +1603,7 @@
                     <span class="label">Localisation</span>
                     <span class="value">Bâle, Suisse</span>
                     <span class="label">Email</span>
-                    <span class="value"><a href="mailto:katia@encounter-project.com">katia@encounter-project.com</a></span>
+                    <span class="value"><a href="/cdn-cgi/l/email-protection#dab1bbaeb3bb9abfb4b9b5afb4aebfa8f7aaa8b5b0bfb9aef4b9b5b7"><span class="__cf_email__" data-cfemail="2d464c59444c6d48434e42584359485f005d5f4247484e59034e4240">[email&#160;protected]</span></a></span>
                     <span class="label">Site</span>
                     <span class="value">encounter-project.com</span>
                 </div>
@@ -1589,7 +1647,7 @@
                 </div>
                 <div class="legal-block">
                     <h3>Your rights</h3>
-                    <p>You have the right to access, correct, or request the deletion of any personal information you have shared. To exercise these rights, please write to <a href="mailto:katia@encounter-project.com">katia@encounter-project.com</a>.</p>
+                    <p>You have the right to access, correct, or request the deletion of any personal information you have shared. To exercise these rights, please write to <a href="/cdn-cgi/l/email-protection#d9b2b8adb0b899bcb7bab6acb7adbcabf4a9abb6b3bcbaadf7bab6b4"><span class="__cf_email__" data-cfemail="4c272d38252d0c29222f23392238293e613c3e2326292f38622f2321">[email&#160;protected]</span></a>.</p>
                 </div>
                 <hr class="legal-divider">
                 <div class="legal-block">
@@ -1598,7 +1656,7 @@
                 </div>
                 <div class="legal-block">
                     <h3>Applicable law</h3>
-                    <p>This policy is governed by Swiss law, in particular the Federal Act on Data Protection (nFADP / LPD). For any question or concern, please contact <a href="mailto:katia@encounter-project.com">katia@encounter-project.com</a>.</p>
+                    <p>This policy is governed by Swiss law, in particular the Federal Act on Data Protection (nFADP / LPD). For any question or concern, please contact <a href="/cdn-cgi/l/email-protection#5c373d28353d1c39323f33293228392e712c2e3336393f28723f3331"><span class="__cf_email__" data-cfemail="137872677a7253767d707c667d6776613e63617c797670673d707c7e">[email&#160;protected]</span></a>.</p>
                 </div>
                 <p class="legal-updated">Last updated: March 2026 — Basel, Switzerland</p>
             </div>
@@ -1627,7 +1685,7 @@
                 </div>
                 <div class="legal-block">
                     <h3>Vos droits</h3>
-                    <p>Vous disposez du droit d'accéder à vos données personnelles, de les corriger ou d'en demander la suppression. Pour exercer ces droits, écrivez à <a href="mailto:katia@encounter-project.com">katia@encounter-project.com</a>.</p>
+                    <p>Vous disposez du droit d'accéder à vos données personnelles, de les corriger ou d'en demander la suppression. Pour exercer ces droits, écrivez à <a href="/cdn-cgi/l/email-protection#3e555f4a575f7e5b505d514b504a5b4c134e4c51545b5d4a105d5153"><span class="__cf_email__" data-cfemail="543f35203d3514313a373b213a2031267924263b3e3137207a373b39">[email&#160;protected]</span></a>.</p>
                 </div>
                 <hr class="legal-divider">
                 <div class="legal-block">
@@ -1636,14 +1694,14 @@
                 </div>
                 <div class="legal-block">
                     <h3>Droit applicable</h3>
-                    <p>Cette politique est régie par le droit suisse, notamment la Loi fédérale sur la protection des données (LPD / nLPD). Pour toute question, contactez <a href="mailto:katia@encounter-project.com">katia@encounter-project.com</a>.</p>
+                    <p>Cette politique est régie par le droit suisse, notamment la Loi fédérale sur la protection des données (LPD / nLPD). Pour toute question, contactez <a href="/cdn-cgi/l/email-protection#650e04110c0425000b060a100b1100174815170a0f0006114b060a08"><span class="__cf_email__" data-cfemail="c1aaa0b5a8a081a4afa2aeb4afb5a4b3ecb1b3aeaba4a2b5efa2aeac">[email&#160;protected]</span></a>.</p>
                 </div>
                 <p class="legal-updated">Dernière mise à jour : mars 2026 — Bâle, Suisse</p>
             </div>
         </section>
     </main>
 
-    <script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
         // Content Dictionary
         const content = {
             en: {
@@ -1677,6 +1735,7 @@
                 'form-message': 'Message',
                 'form-submit': 'Send',
                 'footer': '© 2026 ENCOUNTER. All rights reserved.',
+                'premise-name': 'Katia Lhammi, Founder', 'premise-label': 'Premise', 'premise-p1': `Katia Lhammi has built her career across cultural communications and strategic partnerships. Trained in art history at the Sorbonne, she began at the Musée du Louvre before joining leading cultural communications agencies in Paris. She later moved to New York, where she deepened her international network in art, design, and architecture.`, 'premise-p2': `She went on to lead communications at Carpenters Workshop Gallery in London, working closely with artists. She then joined Art Basel as Head of Strategic Partnerships Europe in Basel. For nearly a decade, she conceived and led bespoke collaborations with brands including BMW, Audemars Piguet, Ruinart, UBS, La Prairie, Vitra, and Zegna, among others.`, 'premise-p3': `ENCOUNTER draws on this experience to build partnerships that connect cultural vision with strategic ambitions.`,
                 'footer-imprint': 'Imprint',
                 'footer-privacy': 'Privacy Policy',
                 'legal-back': 'Back'
@@ -1712,6 +1771,7 @@
                 'form-message': 'Message',
                 'form-submit': 'Envoyer',
                 'footer': '© 2026 ENCOUNTER. Tous droits réservés.',
+                'premise-name': 'Katia Lhammi, Fondatrice', 'premise-label': 'Prémisse', 'premise-p1': `Katia Lhammi a construit son parcours entre communication culturelle et partenariats stratégiques. Diplômée en histoire de l’art de la Sorbonne, elle débute au musée du Louvre avant de rejoindre les agences parisiennes de référence en communication culturelle. Elle s’installe ensuite à New York, où elle développe un réseau international dans l’art, le design et l’architecture.`, 'premise-p2': `Elle prend par la suite la direction de la communication de Carpenters Workshop Gallery à Londres, accompagnant les artistes au plus près. Elle rejoint alors Art Basel comme responsable Europe des partenariats à Bâle. Pendant près d’une décennie, elle conçoit et pilote des collaborations sur mesure avec des marques telles que UBS, Audemars Piguet, Ruinart, BMW, La Prairie, Vitra ou Zegna.`, 'premise-p3': `ENCOUNTER met cette expérience au service de partenariats qui allient vision culturelle et ambition stratégique.`,
                 'footer-imprint': 'Mentions légales',
                 'footer-privacy': 'Confidentialité',
                 'legal-back': 'Retour'
@@ -1888,6 +1948,7 @@
                     </div>`;
                 } else {
                     btn.disabled = false;
+                                    btn.disabled = false;
                     btn.textContent = currentLang === 'fr' ? 'Envoyer' : 'Send';
                     alert(currentLang === 'fr' ? 'Une erreur est survenue. Veuillez réessayer.' : 'Something went wrong. Please try again.');
                 }
@@ -1900,15 +1961,15 @@
 
         // Initialize
         window.addEventListener('load', () => {
-            // Initial state
             document.getElementById('sharedPageNav').style.display = 'none';
             const landingNavEl = document.getElementById('landingNav');
             if (landingNavEl) landingNavEl.style.display = 'flex';
-
             const savedLang = localStorage.getItem('language') || 'en';
             setLanguage(savedLang);
-            
-
+            const savedPage = localStorage.getItem('page');
+            if (savedPage && savedPage !== 'home') {
+                setPage(savedPage);
+            }
         });
     </script>
 </body>
