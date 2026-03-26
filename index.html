@@ -1895,7 +1895,7 @@
             const activePage = document.getElementById(page);
             if (activePage) activePage.scrollTop = 0;
 
-            localStorage.setItem('page', page);
+            // Page no longer persisted — always start on landing
 
             // Restart landing animations when returning home to avoid overlap
             if (page === 'home') {
@@ -1966,10 +1966,7 @@
             if (landingNavEl) landingNavEl.style.display = 'flex';
             const savedLang = localStorage.getItem('language') || 'en';
             setLanguage(savedLang);
-            const savedPage = localStorage.getItem('page');
-            if (savedPage && savedPage !== 'home') {
-                setPage(savedPage);
-            }
+            // Always start on landing page (no page restore from localStorage)
         });
     </script>
 </body>
