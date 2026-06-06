@@ -1440,8 +1440,12 @@
             object-position: right 62%;
             display: block;
         }
+        /* Tighten the gap so banner sits close under Premise (symmetry with top 4rem) */
+        #about .about-section { padding-bottom: 0; min-height: 0; justify-content: flex-start; }
+        #about .about-premise { margin-bottom: 4rem; }
         @media (max-width: 768px) {
             .about-banner { display: none; } /* TODO: enable with mobile-suited image */
+            #about .about-section { padding-bottom: 4rem; } /* restore some breathing room on mobile while banner is hidden */
         }
     </style>
 </head>
