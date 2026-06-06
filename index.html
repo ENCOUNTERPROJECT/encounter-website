@@ -1421,6 +1421,28 @@
         @media (max-width: 768px) {
             .about-premise { padding-top: 3rem; margin-bottom: 3rem; }
         }
+
+        /* About-page bottom banner (desktop only — mobile asset pending) */
+        .about-banner {
+            width: 100vw;
+            position: relative;
+            left: 50%;
+            margin-left: -50vw;
+            line-height: 0;
+            background: #efeeec;
+            overflow: hidden;
+        }
+        .about-banner img {
+            width: 100%;
+            height: 82vh;
+            max-height: 820px;
+            object-fit: cover;
+            object-position: right 62%;
+            display: block;
+        }
+        @media (max-width: 768px) {
+            .about-banner { display: none; } /* TODO: enable with mobile-suited image */
+        }
     </style>
 </head>
 <body>
@@ -1511,6 +1533,17 @@
                     <p data-text="premise-p3"></p>
                 </div>
             </div>
+
+            <!-- Full-bleed banner (desktop only — mobile image TBD) -->
+            <div class="about-banner">
+                <img src="/about-banner-1600.jpg"
+                     srcset="/about-banner-1600.jpg 1600w,
+                             /about-banner-2400.jpg 2400w,
+                             /about-banner-3200.jpg 3200w"
+                     sizes="100vw"
+                     alt="Katia Lhammi — Photograph by Amanda Joy">
+            </div>
+
             <footer>
                 <div class="footer-content">
                     <div class="footer-copy" data-text="footer">© 2026 ENCOUNTER. All rights reserved.</div>
