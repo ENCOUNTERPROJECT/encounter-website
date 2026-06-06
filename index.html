@@ -1444,8 +1444,9 @@
         #about .about-section { padding-bottom: 0; min-height: 0; justify-content: flex-start; }
         #about .about-premise { margin-bottom: 4rem; }
         @media (max-width: 768px) {
-            .about-banner { display: none; } /* TODO: enable with mobile-suited image */
-            #about .about-section { padding-bottom: 4rem; } /* restore some breathing room on mobile while banner is hidden */
+            /* Mobile: show vertical 2:3 portrait at natural ratio, no crop */
+            .about-banner img { height: auto; max-height: none; object-fit: contain; object-position: center; }
+            #about .about-section { padding-bottom: 0; }
         }
     </style>
 </head>
@@ -1538,14 +1539,21 @@
                 </div>
             </div>
 
-            <!-- Full-bleed banner (desktop only — mobile image TBD) -->
+            <!-- Full-bleed banner — vertical image on mobile, horizontal on desktop -->
             <div class="about-banner">
-                <img src="/about-banner-1600.jpg"
-                     srcset="/about-banner-1600.jpg 1600w,
-                             /about-banner-2400.jpg 2400w,
-                             /about-banner-3200.jpg 3200w"
-                     sizes="100vw"
-                     alt="Katia Lhammi — Photograph by Amanda Joy">
+                <picture>
+                    <source media="(max-width: 768px)"
+                            srcset="/about-banner-mobile-800.jpg 800w,
+                                    /about-banner-mobile-1200.jpg 1200w,
+                                    /about-banner-mobile-1600.jpg 1600w"
+                            sizes="100vw">
+                    <img src="/about-banner-1600.jpg"
+                         srcset="/about-banner-1600.jpg 1600w,
+                                 /about-banner-2400.jpg 2400w,
+                                 /about-banner-3200.jpg 3200w"
+                         sizes="100vw"
+                         alt="Katia Lhammi — Photograph by Amanda Joy">
+                </picture>
             </div>
 
             <footer>
