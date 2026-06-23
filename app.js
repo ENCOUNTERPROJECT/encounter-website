@@ -122,6 +122,14 @@
         let currentPage = 'home';
         let previousPage = 'about';
 
+        // Pages that get a clean, shareable URL (e.g. /approach)
+        const routablePages = ['home', 'about', 'approach', 'contact'];
+        const pathForPage = (page) => (page === 'home' ? '/' : '/' + page);
+        const pageForPath = (pathname) => {
+            const slug = pathname.replace(/^\/+|\/+$/g, '');
+            return routablePages.includes(slug) ? slug : 'home';
+        };
+
         // Hamburger Menu Toggle - Handle all hamburger buttons
         const hamburgers = document.querySelectorAll('.hamburger');
         const mobileMenu = document.getElementById('mobileMenu');
@@ -210,9 +218,17 @@
             });
         }
 
-        function setPage(page) {
+        function setPage(page, { updateHistory = true, replace = false } = {}) {
             previousPage = currentPage;
             currentPage = page;
+
+            // Keep the URL in sync with a clean path so the page is shareable (e.g. /approach)
+            if (updateHistory && typeof history.pushState === 'function' && routablePages.includes(page)) {
+                const path = pathForPage(page);
+                if (location.pathname !== path) {
+                    history[replace ? 'replaceState' : 'pushState']({ page }, '', path + location.search);
+                }
+            }
             document.querySelectorAll('.page').forEach(p => {
                 p.classList.remove('active');
             });
@@ -314,5 +330,19 @@
             if (landingNavEl) landingNavEl.style.display = 'flex';
             const savedLang = localStorage.getItem('language') || 'en';
             setLanguage(savedLang);
-            // Always start on landing page (no page restore from localStorage)
+            // Deep-link routing: open the page named in the URL path (e.g. /approach).
+            // Fall back to an old-style #approach hash for any previously shared links.
+            let initialPage = pageForPath(location.pathname);
+            if (initialPage === 'home' && location.hash) {
+                const hashSlug = location.hash.replace('#', '');
+                if (routablePages.includes(hashSlug)) initialPage = hashSlug;
+            }
+            if (initialPage !== 'home') {
+                setPage(initialPage, { replace: true });
+            }
+        });
+
+        // Route on browser back/forward
+        window.addEventListener('popstate', () => {
+            setPage(pageForPath(location.pathname), { updateHistory: false });
         });
