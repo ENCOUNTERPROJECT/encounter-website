@@ -225,7 +225,17 @@
                 <button class="get-in-touch-btn" id="approachGetInTouchBtn" data-text="get-in-touch">Get in Touch</button>
             </section>
 
-            <!-- TODO (next pass): full-width horizontal project gallery bandeau + standard footer go here once images are supplied. Visible page intentionally stops at the Get in Touch button for this pass. -->
+            <!-- TODO (next pass): full-width horizontal project gallery bandeau goes here once images are supplied, above the footer. -->
+
+            <footer>
+                <div class="footer-content">
+                    <div class="footer-copy" data-text="footer">© 2026 ENCOUNTER. All rights reserved.</div>
+                    <div class="footer-links">
+                        <a href="#" data-text="footer-imprint" onclick="event.preventDefault(); setPage(currentLang==='fr'?'imprint-fr':'imprint-en')">Imprint</a>
+                        <a href="#" data-text="footer-privacy" onclick="event.preventDefault(); setPage(currentLang==='fr'?'privacy-fr':'privacy-en')">Privacy Policy</a>
+                    </div>
+                </div>
+            </footer>
         </section>
 
         <!-- Contact Page -->
