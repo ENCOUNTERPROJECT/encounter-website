@@ -56,7 +56,9 @@
                 'premise-name': 'Katia Lhammi, Founder', 'premise-label': 'Premise', 'premise-p1': `Katia Lhammi has built her career across cultural communications and strategic partnerships. Trained in art history at the Sorbonne, she began at the Louvre museum before joining leading cultural communications agencies like Claudine Colin Communication in Paris. She later moved to New York, where she deepened her international network in art, design, and architecture.`, 'premise-p2': `She went on to lead communications at Carpenters Workshop Gallery in London, working closely with artists. She then joined Art Basel as Head of Strategic Partnerships Europe in Basel. For nearly a decade, she conceived and led bespoke collaborations with brands including BMW, Audemars Piguet, Ruinart, UBS, La Prairie, Vitra, and Zegna, among others.`, 'premise-p3': `ENCOUNTER draws on this experience to build partnerships that connect cultural ambition with strategic vision.`,
                 'footer-imprint': 'Imprint',
                 'footer-privacy': 'Privacy Policy',
-                'legal-back': 'Back'
+                'legal-back': 'Back',
+                'notfound-title': 'Page not found',
+                'notfound-back': 'Back to the homepage'
             },
             fr: {
                 'splash-logo': 'ENCOUNTER',
@@ -114,21 +116,38 @@
                 'premise-name': 'Katia Lhammi, Fondatrice', 'premise-label': 'Prémisse', 'premise-p1': `Katia Lhammi a construit son parcours entre communication culturelle et partenariats stratégiques. Diplômée en histoire de l’art de la Sorbonne, elle débute au musée du Louvre avant de rejoindre les agences parisiennes de référence en communication culturelle, telles que Claudine Colin Communication. Elle s’installe ensuite à New York, où elle développe un réseau international dans l’art, le design et l’architecture.`, 'premise-p2': `Elle prend par la suite la direction de la communication de Carpenters Workshop Gallery à Londres, accompagnant les artistes au plus près. Elle rejoint alors Art Basel comme responsable Europe des partenariats à Bâle. Pendant près d’une décennie, elle conçoit et pilote des collaborations sur mesure avec des marques telles que UBS, Audemars Piguet, Ruinart, BMW, La Prairie, Vitra ou Zegna.`, 'premise-p3': `ENCOUNTER met cette expérience au service de partenariats qui allient ambition culturelle et vision stratégique.`,
                 'footer-imprint': 'Mentions légales',
                 'footer-privacy': 'Confidentialité',
-                'legal-back': 'Retour'
+                'legal-back': 'Retour',
+                'notfound-title': 'Page introuvable',
+                'notfound-back': 'Retour à l\'accueil'
             }
         };
 
         let currentLang = 'en';
-        let currentPage = 'home';
-        let previousPage = 'about';
 
-        // Pages that get a clean, shareable URL (e.g. /approach)
-        const routablePages = ['home', 'about', 'approach', 'contact'];
-        const pathForPage = (page) => (page === 'home' ? '/' : '/' + page);
-        const pageForPath = (pathname) => {
-            const slug = pathname.replace(/^\/+|\/+$/g, '');
-            return routablePages.includes(slug) ? slug : 'home';
+        // ROUTER
+        // Every route is a real HTML file (built by build.py from src/). The first load is
+        // server HTML; after that, internal links are fetched and swapped in with the
+        // History API so navigation stays instant. Routes are registered in src/routes.json.
+        const SITE_URL = 'https://encounter-project.com';
+        const legacyHashPages = ['about', 'approach', 'contact']; // old #approach style links
+        const mainEl = document.querySelector('main');
+        const normalizePath = (pathname) => {
+            let p = pathname.replace(/\.html$/, '').replace(/\/+$/, '');
+            if (p === '/index') p = '';
+            return p || '/';
         };
+        const pageCache = new Map(); // path -> { sections, page, title, description, noindex }
+        const readPage = (doc, sections) => ({
+            sections,
+            page: doc.body.dataset.page,
+            title: doc.title,
+            description: doc.querySelector('meta[name="description"]')?.content || '',
+            noindex: (doc.querySelector('meta[name="robots"]')?.content || '').includes('noindex')
+        });
+        let currentPath = normalizePath(location.pathname);
+        let previousPath = null;
+        let navigationId = 0;
+        pageCache.set(currentPath, readPage(document, [...mainEl.querySelectorAll(':scope > .page')]));
 
         // Hamburger Menu Toggle - Handle all hamburger buttons
         const hamburgers = document.querySelectorAll('.hamburger');
@@ -177,6 +196,7 @@
                 btn.classList.toggle('active', btn.dataset.lang === lang);
             });
             updatePageText();
+            showCurrentSection();
             localStorage.setItem('language', lang);
         }
 
@@ -189,64 +209,79 @@
             });
         }
 
-        // Page Navigation
-        document.querySelectorAll('.mobile-nav-link').forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                const page = e.target.dataset.page;
-                setPage(page);
+        // Fetch a route's HTML and add its section(s) to <main> (cached after the first time)
+        async function loadPage(path) {
+            if (pageCache.has(path)) return pageCache.get(path);
+            const response = await fetch(path, { headers: { 'Accept': 'text/html' } });
+            if (!response.ok) throw new Error('HTTP ' + response.status);
+            const doc = new DOMParser().parseFromString(await response.text(), 'text/html');
+            const sections = [...doc.querySelectorAll('main > .page')].map(s => document.importNode(s, true));
+            if (!sections.length) throw new Error('No page content at ' + path);
+            sections.forEach(s => {
+                s.classList.remove('active');
+                mainEl.appendChild(s);
             });
-        });
-
-        // Logo click to home - handle all logo instances
-        document.querySelectorAll('.logo').forEach(logo => {
-            logo.addEventListener('click', () => {
-                setPage('home');
-            });
-        });
-
-        // Get in Touch button
-        document.getElementById('getInTouchBtn').addEventListener('click', () => {
-            setPage('contact');
-        });
-
-        // Approach page "Get in Touch" → Contact (mirrors the About CTA)
-        const approachGetInTouchBtn = document.getElementById('approachGetInTouchBtn');
-        if (approachGetInTouchBtn) {
-            approachGetInTouchBtn.addEventListener('click', () => {
-                setPage('contact');
-            });
+            updatePageText();
+            const entry = readPage(doc, sections);
+            pageCache.set(path, entry);
+            return entry;
         }
 
-        function setPage(page, { updateHistory = true, replace = false } = {}) {
-            previousPage = currentPage;
-            currentPage = page;
+        // Show the section for the current route (legal pages carry one section per language)
+        function showCurrentSection() {
+            const entry = pageCache.get(currentPath);
+            if (!entry) return null;
+            const section = entry.sections.find(s => s.dataset.lang === currentLang)
+                || entry.sections.find(s => !s.dataset.lang)
+                || entry.sections[0];
+            document.querySelectorAll('.page').forEach(p => p.classList.toggle('active', p === section));
+            return section;
+        }
+
+        function setMeta(selector, attr, value) {
+            const el = document.querySelector(selector);
+            if (el) el.setAttribute(attr, value);
+        }
+
+        async function setPage(path, { updateHistory = true, replace = false } = {}) {
+            path = normalizePath(path);
+            const id = ++navigationId;
+            let entry;
+            try {
+                entry = await loadPage(path);
+            } catch (err) {
+                // Not fetchable (offline, unknown route): let the browser load it for real
+                location.assign(path);
+                return;
+            }
+            if (id !== navigationId) return; // a newer navigation won
+
+            if (path !== currentPath) previousPath = currentPath;
+            currentPath = path;
 
             // Keep the URL in sync with a clean path so the page is shareable (e.g. /approach)
-            if (updateHistory && typeof history.pushState === 'function' && routablePages.includes(page)) {
-                const path = pathForPage(page);
-                if (location.pathname !== path) {
-                    history[replace ? 'replaceState' : 'pushState']({ page }, '', path + location.search);
-                }
+            if (updateHistory && location.pathname !== path) {
+                history[replace ? 'replaceState' : 'pushState']({ path }, '', path + location.search);
             }
-            document.querySelectorAll('.page').forEach(p => {
-                p.classList.remove('active');
-            });
-            document.getElementById(page).classList.add('active');
 
-            // Show/hide navs based on page
-            const sharedNav = document.getElementById('sharedPageNav');
-            sharedNav.style.display = (page === 'home') ? 'none' : 'flex';
-            const landingNav = document.getElementById('landingNav');
-            if (landingNav) landingNav.style.display = (page === 'home') ? 'flex' : 'none';
+            // Per-route head: title, description, canonical
+            const url = SITE_URL + path;
+            document.title = entry.title;
+            setMeta('meta[name="description"]', 'content', entry.description);
+            setMeta('meta[name="robots"]', 'content', entry.noindex ? 'noindex' : 'index, follow');
+            setMeta('link[rel="canonical"]', 'href', url);
+            setMeta('meta[property="og:url"]', 'content', url);
+            setMeta('meta[property="og:title"]', 'content', entry.title);
+            setMeta('meta[property="og:description"]', 'content', entry.description);
+
+            // Navs follow body[data-page] (see styles.css)
+            document.body.dataset.page = entry.page;
+            const activePage = showCurrentSection();
 
             // Update mobile nav links
             document.querySelectorAll('.mobile-nav-link').forEach(link => {
-                link.classList.remove('active');
+                link.classList.toggle('active', normalizePath(link.pathname) === path);
             });
-            if (page !== 'home') {
-                document.querySelector(`.mobile-nav-link[data-page="${page}"]`)?.classList.add('active');
-            }
 
             // Close mobile menu
             closeMenu();
@@ -256,13 +291,10 @@
             document.documentElement.scrollTop = 0;
             document.body.scrollTop = 0;
             // Also scroll the page section itself (fixed overflow-y:auto)
-            const activePage = document.getElementById(page);
             if (activePage) activePage.scrollTop = 0;
 
-            // Page no longer persisted — always start on landing
-
             // Restart landing animations when returning home to avoid overlap
-            if (page === 'home') {
+            if (entry.page === 'home') {
                 const animated = document.querySelectorAll('.animated-text');
                 animated.forEach(el => {
                     el.style.animation = 'none';
@@ -279,13 +311,25 @@
             }
         }
 
-        // Scroll cue — click navigates to About
-        document.getElementById('scrollCue').addEventListener('click', () => {
-            setPage('about');
+        // Internal links are real <a href> paths; intercept them for instant navigation
+        document.addEventListener('click', (e) => {
+            if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+            const link = e.target.closest('a[href]');
+            if (!link || link.target === '_blank' || link.hasAttribute('download')) return;
+            if (link.origin !== location.origin) return;
+            if (/\.[a-z0-9]+$/i.test(link.pathname) && !link.pathname.endsWith('.html')) return; // files
+            e.preventDefault();
+            // Legal "Back" returns to wherever the visitor came from
+            if (link.classList.contains('legal-back') && previousPath) {
+                setPage(previousPath);
+                return;
+            }
+            setPage(link.pathname);
         });
 
         // Form Submission
-        document.getElementById('contactForm').addEventListener('submit', async function(e) {
+        document.addEventListener('submit', async function(e) {
+            if (e.target.id !== 'contactForm') return;
             e.preventDefault();
             const form = e.target;
             const btn = form.querySelector('button[type="submit"]');
@@ -325,24 +369,21 @@
 
         // Initialize
         window.addEventListener('load', () => {
-            document.getElementById('sharedPageNav').style.display = 'none';
-            const landingNavEl = document.getElementById('landingNav');
-            if (landingNavEl) landingNavEl.style.display = 'flex';
             const savedLang = localStorage.getItem('language') || 'en';
             setLanguage(savedLang);
-            // Deep-link routing: open the page named in the URL path (e.g. /approach).
-            // Fall back to an old-style #approach hash for any previously shared links.
-            let initialPage = pageForPath(location.pathname);
-            if (initialPage === 'home' && location.hash) {
-                const hashSlug = location.hash.replace('#', '');
-                if (routablePages.includes(hashSlug)) initialPage = hashSlug;
+            // Old-style #approach links from before clean URLs: upgrade to the real path
+            const hashSlug = location.hash.replace('#', '');
+            if (currentPath === '/' && legacyHashPages.includes(hashSlug)) {
+                setPage('/' + hashSlug, { replace: true });
             }
-            if (initialPage !== 'home') {
-                setPage(initialPage, { replace: true });
-            }
+            // Warm the cache so menu navigation is instant
+            const warm = () => document.querySelectorAll('.mobile-nav-link, #scrollCue').forEach(link => {
+                loadPage(normalizePath(link.pathname)).catch(() => {});
+            });
+            (window.requestIdleCallback || ((fn) => setTimeout(fn, 800)))(warm);
         });
 
         // Route on browser back/forward
         window.addEventListener('popstate', () => {
-            setPage(pageForPath(location.pathname), { updateHistory: false });
+            setPage(location.pathname, { updateHistory: false });
         });

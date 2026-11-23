@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<!-- GENERATED FILE. Do not edit. Edit src/ (layout, pages, routes.json) and run: python3 build.py -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Resolve all relative asset paths from the site root, so clean URLs like /approach work -->
+    <base href="/">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+
+    <!-- Google Search Console -->
+    <meta name="google-site-verification" content="S8Mig2XTOAWh3toAaeS6ug-WqQyulbxGDlG1quiEQoE" />
+
+    <!-- SEO (per route, from src/routes.json) -->
+    <title>Page not found | ENCOUNTER</title>
+    <meta name="robots" content="noindex">
+    <meta name="author" content="ENCOUNTER">
+
+    <!-- Open Graph (LinkedIn, WhatsApp, iMessage previews) -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="ENCOUNTER">
+    <meta property="og:title" content="Page not found | ENCOUNTER">
+
+    <meta property="og:image" content="https://encounter-project.com/og-image.jpg">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:locale:alternate" content="fr_FR">
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      "name": "ENCOUNTER",
+      "description": "Strategy and cultural partnerships at the intersection of culture, art, design, architecture, and the premium and luxury sectors.",
+      "url": "https://encounter-project.com/",
+      "email": "katia@encounter-project.com",
+      "founder": {
+        "@type": "Person",
+        "name": "Katia Lhammi",
+        "jobTitle": "Founder",
+        "url": "https://encounter-project.com/about"
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Basel",
+        "addressCountry": "CH"
+      },
+      "areaServed": "Worldwide",
+      "knowsLanguage": ["en", "fr"]
+    }
+    </script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="not-found">
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-content">
+            <ul class="mobile-nav-links">
+                <li><a href="/about" class="mobile-nav-link" data-text="nav-about">About</a></li>
+                <li><a href="/approach" class="mobile-nav-link" data-text="nav-approach">Approach</a></li>
+                <li><a href="/contact" class="mobile-nav-link" data-text="nav-contact">Contact</a></li>
+            </ul>
+            <div class="mobile-language-toggle">
+                <button class="mobile-lang-btn active" data-lang="en">EN</button>
+                <div class="mobile-lang-separator"></div>
+                <button class="mobile-lang-btn" data-lang="fr">FR</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Landing Navigation (home only; visibility driven by body[data-page] in styles.css) -->
+    <nav class="landing-nav" id="landingNav">
+        <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </nav>
+
+    <!-- Shared Page Navigation (every page except home) -->
+    <nav class="page-nav" id="sharedPageNav">
+        <a class="logo page-logo" href="/" style="display:flex;align-items:center;"><img src="wordmark.png" alt="ENCOUNTER" style="height:clamp(14px,2.5vw,18px);width:auto;display:block;"></a>
+        <button class="hamburger" id="pageHamburger" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
+    </nav>
+
+    <!-- Main Content: only this route's section(s). app.js fetches the others on navigation. -->
+    <main>
+        <section class="page active" id="not-found">
+            <div class="legal-section">
+                <h1 class="legal-title" data-text="notfound-title">Page not found</h1>
+                <div class="legal-block">
+                    <p><a href="/" data-text="notfound-back">Back to the homepage</a></p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>

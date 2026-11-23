@@ -1580,3 +1580,13 @@
             .about-banner img { height: auto; max-height: none; object-fit: contain; object-position: center; }
             #about .about-section { padding-bottom: 0; }
         }
+
+        /* ROUTE-DRIVEN NAV VISIBILITY
+           Each route's HTML sets <body data-page="...">; app.js keeps it in sync on navigation.
+           Home shows the landing hamburger only; every other page shows the shared page nav. */
+        body[data-page="home"] .page-nav { display: none; }
+        body:not([data-page="home"]) .landing-nav { display: none; }
+
+        /* CTAs, scroll cue and logo are real links (crawlable hrefs); keep the button look */
+        a.get-in-touch-btn { display: inline-block; text-decoration: none; }
+        a.scroll-cue, a.logo { text-decoration: none; }

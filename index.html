@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- GENERATED FILE. Do not edit. Edit src/ (layout, pages, routes.json) and run: python3 build.py -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -14,21 +15,21 @@
     <!-- Google Search Console -->
     <meta name="google-site-verification" content="S8Mig2XTOAWh3toAaeS6ug-WqQyulbxGDlG1quiEQoE" />
 
-    <!-- SEO -->
+    <!-- SEO (per route, from src/routes.json) -->
     <title>ENCOUNTER | Strategic Cultural Partnerships</title>
-    <meta name="description" content="Where institutions, artists, cultural platforms, and luxury brands find their next collaboration across global creative ecosystems — designed for lasting impact.">
-    <meta name="keywords" content="cultural partnerships, art strategy, luxury brands, cultural consulting, Basel, Switzerland, art Basel, brand culture, creative strategy">
-    <meta name="author" content="ENCOUNTER">
+    <meta name="description" content="Where institutions, artists, cultural platforms, and luxury brands find their next collaboration across global creative ecosystems, designed for lasting impact.">
     <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://encounter-project.com">
+    <link rel="canonical" href="https://encounter-project.com/">
+    <meta name="author" content="ENCOUNTER">
 
     <!-- Open Graph (LinkedIn, WhatsApp, iMessage previews) -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://encounter-project.com">
+    <meta property="og:site_name" content="ENCOUNTER">
     <meta property="og:title" content="ENCOUNTER | Strategic Cultural Partnerships">
-    <meta property="og:description" content="Where institutions, artists, cultural platforms, and luxury brands find their next collaboration across global creative ecosystems — designed for lasting impact.">
+    <meta property="og:description" content="Where institutions, artists, cultural platforms, and luxury brands find their next collaboration across global creative ecosystems, designed for lasting impact.">
+    <meta property="og:url" content="https://encounter-project.com/">
     <meta property="og:image" content="https://encounter-project.com/og-image.jpg">
-    <meta property="og:locale" content="en_GB">
+    <meta property="og:locale" content="en_US">
     <meta property="og:locale:alternate" content="fr_FR">
 
     <!-- Structured Data -->
@@ -38,8 +39,14 @@
       "@type": "ProfessionalService",
       "name": "ENCOUNTER",
       "description": "Strategy and cultural partnerships at the intersection of culture, art, design, architecture, and the premium and luxury sectors.",
-      "url": "https://encounter-project.com",
+      "url": "https://encounter-project.com/",
       "email": "katia@encounter-project.com",
+      "founder": {
+        "@type": "Person",
+        "name": "Katia Lhammi",
+        "jobTitle": "Founder",
+        "url": "https://encounter-project.com/about"
+      },
       "address": {
         "@type": "PostalAddress",
         "addressLocality": "Basel",
@@ -51,16 +58,15 @@
     </script>
     <link rel="stylesheet" href="styles.css">
 </head>
-<body>
-
+<body data-page="home">
 
     <!-- Mobile Menu Overlay -->
     <div class="mobile-menu" id="mobileMenu">
         <div class="mobile-menu-content">
             <ul class="mobile-nav-links">
-                <li><a href="#" data-page="about" class="mobile-nav-link" data-text="nav-about">About</a></li>
-                <li><a href="#" data-page="approach" class="mobile-nav-link" data-text="nav-approach">Approach</a></li>
-                <li><a href="#" data-page="contact" class="mobile-nav-link" data-text="nav-contact">Contact</a></li>
+                <li><a href="/about" class="mobile-nav-link" data-text="nav-about">About</a></li>
+                <li><a href="/approach" class="mobile-nav-link" data-text="nav-approach">Approach</a></li>
+                <li><a href="/contact" class="mobile-nav-link" data-text="nav-contact">Contact</a></li>
             </ul>
             <div class="mobile-language-toggle">
                 <button class="mobile-lang-btn active" data-lang="en">EN</button>
@@ -70,25 +76,32 @@
         </div>
     </div>
 
-    <!-- Landing Navigation (outside #home for correct stacking context) -->
+    <!-- Landing Navigation (home only; visibility driven by body[data-page] in styles.css) -->
     <nav class="landing-nav" id="landingNav">
-        <button class="hamburger" id="hamburgerBtn">
+        <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
             <span></span>
             <span></span>
             <span></span>
         </button>
     </nav>
 
-    <!-- Main Content -->
+    <!-- Shared Page Navigation (every page except home) -->
+    <nav class="page-nav" id="sharedPageNav">
+        <a class="logo page-logo" href="/" style="display:flex;align-items:center;"><img src="wordmark.png" alt="ENCOUNTER" style="height:clamp(14px,2.5vw,18px);width:auto;display:block;"></a>
+        <button class="hamburger" id="pageHamburger" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
+    </nav>
+
+    <!-- Main Content: only this route's section(s). app.js fetches the others on navigation. -->
     <main>
-        <!-- Landing Page: Dynamic ENCOUNTER ↔ Tagline Animation -->
         <section class="page active" id="home">
             <div class="hero-landing">
                 <video class="video-background" autoplay muted loop playsinline>
                     <source src="https://videos.pexels.com/video-files/3043132/3043132-sd_640_360_30fps.mp4" type="video/mp4">
                 </video>
                 <div class="video-overlay"></div>
-                
+
                 <!-- Hero Content: Animated ENCOUNTER ↔ Tagline -->
                 <div class="landing-hero-content">
                     <div class="animated-wordmark-container">
@@ -100,324 +113,14 @@
                 </div>
 
                 <!-- Scroll Cue -->
-                <div class="scroll-cue" id="scrollCue">
+                <a class="scroll-cue" id="scrollCue" href="/about">
                     <span class="scroll-cue-label" data-text="scroll-cue">Discover</span>
-                    <div class="scroll-cue-line"></div>
-                </div>
-            </div>
-        </section>
-
-    <!-- Shared Page Navigation (outside .page for proper fixed positioning) -->
-    <nav class="page-nav" id="sharedPageNav" style="display:none;">
-        <div class="logo page-logo" onclick="setPage('home')" style="cursor:pointer;display:flex;align-items:center;"><img src="wordmark.png" alt="ENCOUNTER" style="height:clamp(14px,2.5vw,18px);width:auto;display:block;"></div>
-        <button class="hamburger" id="pageHamburger" aria-label="Menu">
-            <span></span><span></span><span></span>
-        </button>
-    </nav>
-
-        <!-- About Page -->
-        <section class="page" id="about">
-            <div class="about-section">
-                <div class="section-header">
-                    <h2 class="section-title" data-text="about-title">Strategy & Cultural Partnerships</h2>
-                </div>
-                <p class="about-lead" data-text="about-intro-1">ENCOUNTER fosters meaningful connections at the intersection of culture, art, design, architecture, and the premium and luxury sectors.</p>
-                <div class="about-body">
-                    <p data-text="about-intro-2">Rooted in contemporary creative ecosystems, ENCOUNTER supports institutions, artists, cultural platforms and brands internationally in developing strategic partnerships.</p>
-                    <p data-text="about-intro-3">Each collaboration is conceived with respect for artistic integrity, aligned with the ambitions of all parties involved, and designed to generate measurable, lasting impact.</p>
-                </div>
-                <div class="about-footer">
-                    <p class="tagline" data-text="about-tagline">Authenticity. Relevance. Excellence.</p>
-                    <button class="get-in-touch-btn" id="getInTouchBtn" data-text="get-in-touch">Get in Touch</button>
-                </div>
-
-                <!-- Premise / Bio -->
-                <div class="about-premise">
-                    <h2 class="about-premise-title" data-text="premise-label">Premise</h2>
-                    <p class="about-premise-name" data-text="premise-name">Katia Lhammi, Founder</p>
-                    <p data-text="premise-p1"></p>
-                    <p data-text="premise-p2"></p>
-                    <p data-text="premise-p3"></p>
-                </div>
-            </div>
-
-            <!-- Full-bleed banner — vertical image on mobile, horizontal on desktop -->
-            <div class="about-banner">
-                <picture>
-                    <source media="(max-width: 768px)"
-                            srcset="/about-banner-mobile-800.jpg 800w,
-                                    /about-banner-mobile-1200.jpg 1200w,
-                                    /about-banner-mobile-1600.jpg 1600w"
-                            sizes="100vw">
-                    <img src="/about-banner-1600.jpg"
-                         srcset="/about-banner-1600.jpg 1600w,
-                                 /about-banner-2400.jpg 2400w,
-                                 /about-banner-3200.jpg 3200w"
-                         sizes="100vw"
-                         alt="Katia Lhammi — Photograph by Amanda Joy">
-                </picture>
-            </div>
-
-            <footer>
-                <div class="footer-content">
-                    <div class="footer-copy" data-text="footer">© 2026 ENCOUNTER. All rights reserved.</div>
-                    <div class="footer-links">
-                        <a href="#" data-text="footer-imprint" onclick="event.preventDefault(); setPage(currentLang==='fr'?'imprint-fr':'imprint-en')">Imprint</a>
-                        <a href="#" data-text="footer-privacy" onclick="event.preventDefault(); setPage(currentLang==='fr'?'privacy-fr':'privacy-en')">Privacy Policy</a>
-                    </div>
-                </div>
-            </footer>
-        </section>
-
-        <!-- Approach Page -->
-        <section class="page" id="approach">
-            <header class="approach-hero">
-                <div class="section-header">
-                    <h2 class="section-title" data-text="approach-title">Approach</h2>
-                </div>
-                <p class="about-lead measure-hero" data-text="approach-subtitle">Where cultural ambition and brand vision meet.</p>
-                <div class="approach-intro">
-                    <p data-text="approach-intro-2">ENCOUNTER&rsquo;s advisory work spans six pillars, from assessment to impact, ensuring a high standard of execution while supporting the teams closely and giving them the tools to succeed. Engaged in full or at any stage, as the project requires.</p>
-                </div>
-            </header>
-
-            <!-- Six Pillars (3 x 2) -->
-            <section class="approach-pillars">
-                <div class="pillar">
-                    <div class="pillar-head"><span class="pillar-num">01 /</span> <span data-text="approach-01-name">Mapping</span></div>
-                    <div class="pillar-keywords" data-text="approach-01-keywords">Audit · Competitive Benchmark · Asset Valuation · Cultural DNA</div>
-                    <p class="pillar-text" data-text="approach-01-desc">Assess what makes a cultural offering distinctive, identify the gaps, and align the vision with the objectives.</p>
-                </div>
-
-                <div class="pillar">
-                    <div class="pillar-head"><span class="pillar-num">02 /</span> <span data-text="approach-02-name">Strategy</span></div>
-                    <div class="pillar-keywords" data-text="approach-02-keywords">Positioning · Brand Partner Intelligence · Platform Identification · Narrative Development</div>
-                    <p class="pillar-text" data-text="approach-02-desc">Identify the cultural territories of influence, and define the partners with the strongest relevance and long-term alignment.</p>
-                </div>
-
-                <div class="pillar">
-                    <div class="pillar-head"><span class="pillar-num">03 /</span> <span data-text="approach-03-name">Concept</span></div>
-                    <div class="pillar-keywords" data-text="approach-03-keywords">Ideation · Brand Activation · Exclusive Experiences · Cultural Programming · Community Building</div>
-                    <p class="pillar-text" data-text="approach-03-desc">Design bespoke creative formats that bring partnerships to life — from high-profile commissions to multi-year global programming.</p>
-                </div>
-
-                <div class="pillar">
-                    <div class="pillar-head"><span class="pillar-num">04 /</span> <span data-text="approach-04-name">Connection</span></div>
-                    <div class="pillar-keywords" data-text="approach-04-keywords">Global Network · High-Level Introductions · Tailored Pitch &amp; Proposal · Partnership Architecture</div>
-                    <p class="pillar-text" data-text="approach-04-desc">Draw on an established global network to make the right introductions, with a tailor-made pitch and proposal carefully crafted for each partner.</p>
-                </div>
-
-                <div class="pillar">
-                    <div class="pillar-head"><span class="pillar-num">05 /</span> <span data-text="approach-05-name">Negotiation</span></div>
-                    <div class="pillar-keywords" data-text="approach-05-keywords">Contract Negotiation · Governance Frameworks · Commercial Terms · Stewardship · Relationship Building</div>
-                    <p class="pillar-text" data-text="approach-05-desc">Protect intellectual property and set clear governance so creative freedom and commercial protection coexist.</p>
-                </div>
-
-                <div class="pillar">
-                    <div class="pillar-head"><span class="pillar-num">06 /</span> <span data-text="approach-06-name">Measurement</span></div>
-                    <div class="pillar-keywords" data-text="approach-06-keywords">Impact Assessment · Return on Investment · Optimization · Reputational Reporting</div>
-                    <p class="pillar-text" data-text="approach-06-desc">Track impact across cultural, commercial and reputational return, and refine each program so its value grows over time.</p>
-                </div>
-            </section>
-
-            <!-- CTA -->
-            <section class="approach-cta">
-                <button class="get-in-touch-btn" id="approachGetInTouchBtn" data-text="get-in-touch">Get in Touch</button>
-            </section>
-
-            <!-- TODO (next pass): full-width horizontal project gallery bandeau goes here once images are supplied, above the footer. -->
-
-            <footer>
-                <div class="footer-content">
-                    <div class="footer-copy" data-text="footer">© 2026 ENCOUNTER. All rights reserved.</div>
-                    <div class="footer-links">
-                        <a href="#" data-text="footer-imprint" onclick="event.preventDefault(); setPage(currentLang==='fr'?'imprint-fr':'imprint-en')">Imprint</a>
-                        <a href="#" data-text="footer-privacy" onclick="event.preventDefault(); setPage(currentLang==='fr'?'privacy-fr':'privacy-en')">Privacy Policy</a>
-                    </div>
-                </div>
-            </footer>
-        </section>
-
-        <!-- Contact Page -->
-        <section class="page" id="contact">
-            <div class="contact-section">
-                <div class="contact-inner">
-                    <div class="contact-header-block">
-                        <h2 class="contact-title" data-text="contact-title">Every encounter begins with a conversation.</h2>
-                    </div>
-                    <form class="contact-form" id="contactForm">
-                        <div class="form-group">
-                            <label for="email" data-text="form-email">Email</label>
-                            <input type="email" id="email" name="email" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="subject" data-text="form-subject">Subject</label>
-                            <input type="text" id="subject" name="subject" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="message" data-text="form-message">Message</label>
-                            <textarea id="message" name="message" required></textarea>
-                        </div>
-                        <button type="submit" class="submit-btn" data-text="form-submit">Send</button>
-                    </form>
-                </div>
-            </div>
-            <footer>
-                <div class="footer-content">
-                    <div class="footer-copy" data-text="footer">© 2026 ENCOUNTER. All rights reserved.</div>
-                    <div class="footer-links">
-                        <a href="#" data-text="footer-imprint" onclick="event.preventDefault(); setPage(currentLang==='fr'?'imprint-fr':'imprint-en')">Imprint</a>
-                        <a href="#" data-text="footer-privacy" onclick="event.preventDefault(); setPage(currentLang==='fr'?'privacy-fr':'privacy-en')">Privacy Policy</a>
-                    </div>
-                </div>
-            </footer>
-        </section>
-
-        <!-- Imprint EN -->
-        <section class="page" id="imprint-en">
-            <div class="legal-section">
-                <button class="legal-back" onclick="setPage(previousPage || 'about')" data-text="legal-back">Back</button>
-                <h1 class="legal-title">Imprint</h1>
-                <div class="legal-identity">
-                    <span class="label">Name</span>
-                    <span class="value">Katia Lhammi</span>
-                    <span class="label">Brand</span>
-                    <span class="value">ENCOUNTER</span>
-                    <span class="label">Location</span>
-                    <span class="value">Basel, Switzerland</span>
-                    <span class="label">Email</span>
-                    <span class="value"><a href="/cdn-cgi/l/email-protection#bfd4decbd6deffdad1dcd0cad1cbdacd92cfcdd0d5dadccb91dcd0d2"><span class="__cf_email__" data-cfemail="9af1fbeef3fbdafff4f9f5eff4eeffe8b7eae8f5f0fff9eeb4f9f5f7">[email&#160;protected]</span></a></span>
-                    <span class="label">Website</span>
-                    <span class="value">encounter-project.com</span>
-                </div>
-                <hr class="legal-divider">
-                <div class="legal-block">
-                    <h3>Disclaimer</h3>
-                    <p>The content of this website is provided for information purposes only. While every effort is made to keep information accurate and up to date, ENCOUNTER makes no representations or warranties of any kind, express or implied, about the completeness or accuracy of the information on this site.</p>
-                </div>
-                <div class="legal-block">
-                    <h3>Intellectual Property</h3>
-                    <p>All content on this website — including text, visual identity, and design — is the property of Katia Lhammi / ENCOUNTER and may not be reproduced or used without prior written consent.</p>
-                </div>
-                <div class="legal-block">
-                    <h3>External Links</h3>
-                    <p>This website may contain links to external sites. ENCOUNTER has no control over the content of those sites and accepts no responsibility for them.</p>
-                </div>
-                <p class="legal-updated">Last updated: March 2026 — Basel, Switzerland</p>
-            </div>
-        </section>
-
-        <!-- Imprint FR -->
-        <section class="page" id="imprint-fr">
-            <div class="legal-section">
-                <button class="legal-back" onclick="setPage(previousPage || 'about')" data-text="legal-back">Retour</button>
-                <h1 class="legal-title">Mentions légales</h1>
-                <div class="legal-identity">
-                    <span class="label">Nom</span>
-                    <span class="value">Katia Lhammi</span>
-                    <span class="label">Nom commercial</span>
-                    <span class="value">ENCOUNTER</span>
-                    <span class="label">Localisation</span>
-                    <span class="value">Bâle, Suisse</span>
-                    <span class="label">Email</span>
-                    <span class="value"><a href="/cdn-cgi/l/email-protection#dab1bbaeb3bb9abfb4b9b5afb4aebfa8f7aaa8b5b0bfb9aef4b9b5b7"><span class="__cf_email__" data-cfemail="2d464c59444c6d48434e42584359485f005d5f4247484e59034e4240">[email&#160;protected]</span></a></span>
-                    <span class="label">Site</span>
-                    <span class="value">encounter-project.com</span>
-                </div>
-                <hr class="legal-divider">
-                <div class="legal-block">
-                    <h3>Avertissement</h3>
-                    <p>Le contenu de ce site est fourni à titre informatif uniquement. ENCOUNTER s'efforce d'en assurer l'exactitude, mais ne donne aucune garantie, expresse ou implicite, quant à l'exhaustivité ou à la fiabilité des informations présentées.</p>
-                </div>
-                <div class="legal-block">
-                    <h3>Propriété intellectuelle</h3>
-                    <p>L'ensemble du contenu de ce site — textes, identité visuelle et design — est la propriété de Katia Lhammi / ENCOUNTER et ne peut être reproduit ou utilisé sans autorisation écrite préalable.</p>
-                </div>
-                <div class="legal-block">
-                    <h3>Liens externes</h3>
-                    <p>Ce site peut contenir des liens vers des sites tiers. ENCOUNTER n'exerce aucun contrôle sur leur contenu et décline toute responsabilité à leur égard.</p>
-                </div>
-                <p class="legal-updated">Dernière mise à jour : mars 2026 — Bâle, Suisse</p>
-            </div>
-        </section>
-
-        <!-- Privacy EN -->
-        <section class="page" id="privacy-en">
-            <div class="legal-section">
-                <button class="legal-back" onclick="setPage(previousPage || 'about')" data-text="legal-back">Back</button>
-                <h1 class="legal-title">Privacy Policy</h1>
-                <div class="legal-block">
-                    <p>This policy explains how ENCOUNTER (operated by Katia Lhammi, Basel, Switzerland) handles the personal information shared through this website. The approach is simple: only what is necessary is collected, it is never sold or shared, and it is used solely to respond to your messages.</p>
-                </div>
-                <hr class="legal-divider">
-                <div class="legal-block">
-                    <h3>What is collected</h3>
-                    <p>When you use the contact form, the following information is collected: your email address, the subject of your message, and the content of your message. No other data is collected through this website. This site does not use tracking cookies, analytics tools, or third-party advertising.</p>
-                </div>
-                <div class="legal-block">
-                    <h3>How it is used</h3>
-                    <p>Your information is used only to respond to your enquiry. It is not added to any mailing list, shared with third parties, or used for any commercial purpose without your explicit consent.</p>
-                </div>
-                <div class="legal-block">
-                    <h3>How it is stored</h3>
-                    <p>Messages sent through the contact form are received directly by email. No information is stored on external servers or databases connected to this website.</p>
-                </div>
-                <div class="legal-block">
-                    <h3>Your rights</h3>
-                    <p>You have the right to access, correct, or request the deletion of any personal information you have shared. To exercise these rights, please write to <a href="/cdn-cgi/l/email-protection#d9b2b8adb0b899bcb7bab6acb7adbcabf4a9abb6b3bcbaadf7bab6b4"><span class="__cf_email__" data-cfemail="4c272d38252d0c29222f23392238293e613c3e2326292f38622f2321">[email&#160;protected]</span></a>.</p>
-                </div>
-                <hr class="legal-divider">
-                <div class="legal-block">
-                    <h3>Cookies</h3>
-                    <p>This website does not use cookies to track or identify visitors. A language preference may be stored locally in your browser to remember your language choice between visits. This data stays on your device and is never transmitted.</p>
-                </div>
-                <div class="legal-block">
-                    <h3>Applicable law</h3>
-                    <p>This policy is governed by Swiss law, in particular the Federal Act on Data Protection (nFADP / LPD). For any question or concern, please contact <a href="/cdn-cgi/l/email-protection#5c373d28353d1c39323f33293228392e712c2e3336393f28723f3331"><span class="__cf_email__" data-cfemail="137872677a7253767d707c667d6776613e63617c797670673d707c7e">[email&#160;protected]</span></a>.</p>
-                </div>
-                <p class="legal-updated">Last updated: March 2026 — Basel, Switzerland</p>
-            </div>
-        </section>
-
-        <!-- Privacy FR -->
-        <section class="page" id="privacy-fr">
-            <div class="legal-section">
-                <button class="legal-back" onclick="setPage(previousPage || 'about')" data-text="legal-back">Retour</button>
-                <h1 class="legal-title">Confidentialité</h1>
-                <div class="legal-block">
-                    <p>Cette politique explique comment ENCOUNTER (exercé par Katia Lhammi, Bâle, Suisse) traite les informations personnelles partagées via ce site. L'approche est simple : seul le nécessaire est collecté, ces données ne sont jamais vendues ni partagées, et elles servent uniquement à répondre à vos messages.</p>
-                </div>
-                <hr class="legal-divider">
-                <div class="legal-block">
-                    <h3>Ce qui est collecté</h3>
-                    <p>Lorsque vous utilisez le formulaire de contact, les informations suivantes sont collectées : votre adresse e-mail, l'objet de votre message et son contenu. Aucune autre donnée n'est collectée via ce site. Ce site n'utilise ni cookies de suivi, ni outils d'analyse, ni publicité tierce.</p>
-                </div>
-                <div class="legal-block">
-                    <h3>Comment elles sont utilisées</h3>
-                    <p>Vos informations sont utilisées uniquement pour répondre à votre message. Elles ne sont ajoutées à aucune liste de diffusion, partagées avec des tiers, ni utilisées à des fins commerciales sans votre consentement explicite.</p>
-                </div>
-                <div class="legal-block">
-                    <h3>Comment elles sont conservées</h3>
-                    <p>Les messages envoyés via le formulaire de contact sont reçus directement par e-mail. Aucune information n'est stockée sur des serveurs externes ou des bases de données liées à ce site.</p>
-                </div>
-                <div class="legal-block">
-                    <h3>Vos droits</h3>
-                    <p>Vous disposez du droit d'accéder à vos données personnelles, de les corriger ou d'en demander la suppression. Pour exercer ces droits, écrivez à <a href="/cdn-cgi/l/email-protection#3e555f4a575f7e5b505d514b504a5b4c134e4c51545b5d4a105d5153"><span class="__cf_email__" data-cfemail="543f35203d3514313a373b213a2031267924263b3e3137207a373b39">[email&#160;protected]</span></a>.</p>
-                </div>
-                <hr class="legal-divider">
-                <div class="legal-block">
-                    <h3>Cookies</h3>
-                    <p>Ce site n'utilise pas de cookies pour suivre ou identifier les visiteurs. Une préférence de langue peut être enregistrée localement dans votre navigateur pour mémoriser votre choix entre les visites. Cette donnée reste sur votre appareil et n'est jamais transmise.</p>
-                </div>
-                <div class="legal-block">
-                    <h3>Droit applicable</h3>
-                    <p>Cette politique est régie par le droit suisse, notamment la Loi fédérale sur la protection des données (LPD / nLPD). Pour toute question, contactez <a href="/cdn-cgi/l/email-protection#650e04110c0425000b060a100b1100174815170a0f0006114b060a08"><span class="__cf_email__" data-cfemail="c1aaa0b5a8a081a4afa2aeb4afb5a4b3ecb1b3aeaba4a2b5efa2aeac">[email&#160;protected]</span></a>.</p>
-                </div>
-                <p class="legal-updated">Dernière mise à jour : mars 2026 — Bâle, Suisse</p>
+                    <span class="scroll-cue-line"></span>
+                </a>
             </div>
         </section>
     </main>
 
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="app.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>
