@@ -128,7 +128,7 @@
         // Every route is a real HTML file (built by build.py from src/). The first load is
         // server HTML; after that, internal links are fetched and swapped in with the
         // History API so navigation stays instant. Routes are registered in src/routes.json.
-        const SITE_URL = 'https://encounter-project.com';
+        const SITE_URL = 'https://www.encounter-project.com';
         const legacyHashPages = ['about', 'approach', 'contact']; // old #approach style links
         const mainEl = document.querySelector('main');
         const normalizePath = (pathname) => {

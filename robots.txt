@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://encounter-project.com/sitemap.xml
+Sitemap: https://www.encounter-project.com/sitemap.xml
